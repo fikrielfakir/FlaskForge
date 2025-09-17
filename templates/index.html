@@ -7,58 +7,49 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero" style="background-image: url('https://images.unsplash.com/photo-1539650116574-75c0c6d73f6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
-    <div class="container">
-        <div class="row justify-content-center text-center">
-            <div class="col-lg-8">
-                <div class="hero-content fade-in-up">
-                    <h1 class="display-3 fw-bold mb-4">
-                        Discover <span class="text-gradient">Authentic Morocco</span>
-                    </h1>
-                    <p class="lead mb-5">
-                        Embark on extraordinary journeys through Morocco's rich cultural heritage. 
-                        Join traditional experiences, connect with local communities, and discover 
-                        the timeless beauty of Moroccan traditions.
-                    </p>
-                    
-                    <!-- Stats Row -->
-                    <div class="row text-center mb-5">
-                        <div class="col-4">
-                            <h3 class="display-6 fw-bold">150+</h3>
-                            <p class="mb-0">Cultural Events</p>
+<section class="hero-video-container">
+    <!-- Video Background -->
+    <div class="video-background">
+        <iframe 
+            src="https://www.youtube.com/embed/XgDy60Rr0AM?autoplay=1&mute=1&loop=1&playlist=XgDy60Rr0AM&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
+            title="Background video"
+            frameborder="0" 
+            allow="autoplay; encrypted-media" 
+            allowfullscreen
+            aria-hidden="true">
+        </iframe>
+    </div>
+    
+    <!-- Hero Content -->
+    <div class="hero-overlay">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <div class="hero-content fade-in-up">
+                        <div class="hero-badge mb-4">
+                            <span class="badge-text">Association</span>
                         </div>
-                        <div class="col-4">
-                            <h3 class="display-6 fw-bold">25+</h3>
-                            <p class="mb-0">Heritage Sites</p>
+                        <h1 class="hero-title mb-4">
+                            THE JOURNEY
+                        </h1>
+                        <p class="hero-subtitle mb-5">
+                            Where adventure meets enlightenment
+                        </p>
+                        
+                        <!-- CTA Button -->
+                        <div class="hero-cta">
+                            <a href="{{ url_for('events') }}" class="btn btn-hero btn-lg px-5 py-3">
+                                Explore Events
+                            </a>
                         </div>
-                        <div class="col-4">
-                            <h3 class="display-6 fw-bold">500+</h3>
-                            <p class="mb-0">Community Members</p>
-                        </div>
-                    </div>
-                    
-                    <!-- CTA Buttons -->
-                    <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
-                        {% if not current_user.is_authenticated %}
-                            <a href="{{ url_for('register') }}" class="btn btn-secondary btn-lg px-4">
-                                <i class="bi bi-compass me-2"></i>Start Your Journey
-                            </a>
-                            <a href="{{ url_for('events') }}" class="btn btn-outline-light btn-lg px-4">
-                                <i class="bi bi-calendar-event me-2"></i>Explore Events
-                            </a>
-                        {% else %}
-                            <a href="{{ url_for('events') }}" class="btn btn-secondary btn-lg px-4">
-                                <i class="bi bi-star me-2"></i>Discover Experiences
-                            </a>
-                            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-light btn-lg px-4">
-                                <i class="bi bi-speedometer2 me-2"></i>My Dashboard
-                            </a>
-                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- Decorative Pattern -->
+    <div class="hero-pattern"></div>
 </section>
 
 <!-- Dune Divider -->
