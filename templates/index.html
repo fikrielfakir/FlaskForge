@@ -8,6 +8,24 @@
     <div class="container">
         <h1 class="display-4 mb-4">Welcome to The Journey</h1>
         <p class="lead mb-4">Discover amazing events and connect with your community through meaningful experiences</p>
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-8">
+                <div class="row text-center text-white">
+                    <div class="col-4">
+                        <h3 class="display-6">2,500+</h3>
+                        <small>Active Members</small>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="display-6">180+</h3>
+                        <small>Events This Month</small>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="display-6">45+</h3>
+                        <small>Community Clubs</small>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% if not current_user.is_authenticated %}
             <a href="{{ url_for('register') }}" class="btn btn-light btn-lg me-3">Join The Journey</a>
             <a href="{{ url_for('events') }}" class="btn btn-outline-light btn-lg">Browse Events</a>
@@ -18,34 +36,115 @@
     </div>
 </section>
 
-<!-- Features Section -->
+<!-- Our Focus Section -->
 <section class="py-5">
     <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3">Our Focus</h2>
+            <p class="lead text-muted">Building stronger communities through shared experiences and sustainable practices</p>
+        </div>
         <div class="row text-center mb-5">
             <div class="col-md-4">
-                <div class="card border-0 h-100">
-                    <div class="card-body">
+                <div class="card border-0 h-100 shadow-sm">
+                    <div class="card-body p-4">
                         <i class="bi bi-leaf text-success" style="font-size: 3rem;"></i>
                         <h4 class="mt-3">Sustainable Living</h4>
-                        <p>Join eco-friendly workshops, green markets, and conservation talks to live more sustainably.</p>
+                        <p>Join eco-friendly workshops, green markets, zero-waste cooking classes, and conservation talks. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-success me-1">Eco Workshops</span>
+                            <span class="badge bg-success me-1">Green Markets</span>
+                            <span class="badge bg-success">Conservation</span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card border-0 h-100">
-                    <div class="card-body">
+                <div class="card border-0 h-100 shadow-sm">
+                    <div class="card-body p-4">
                         <i class="bi bi-palette text-primary" style="font-size: 3rem;"></i>
                         <h4 class="mt-3">Cultural Experiences</h4>
-                        <p>Explore art exhibitions, music festivals, and cultural exchanges in your city.</p>
+                        <p>Explore art exhibitions, music festivals, cultural exchanges, and local artist showcases. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-primary me-1">Art Exhibitions</span>
+                            <span class="badge bg-primary me-1">Music Festivals</span>
+                            <span class="badge bg-primary">Cultural Exchange</span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card border-0 h-100">
-                    <div class="card-body">
+                <div class="card border-0 h-100 shadow-sm">
+                    <div class="card-body p-4">
                         <i class="bi bi-people text-warning" style="font-size: 3rem;"></i>
                         <h4 class="mt-3">Entertainment & Networking</h4>
-                        <p>Connect with like-minded people through social mixers and professional events.</p>
+                        <p>Connect with like-minded people through social mixers, professional events, hobby groups, and community gatherings. At vero eos et accusamus et iusto odio dignissimos ducimus.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-warning me-1">Social Mixers</span>
+                            <span class="badge bg-warning me-1">Professional Events</span>
+                            <span class="badge bg-warning">Hobby Groups</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Events Calendar Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3">Events Calendar</h2>
+            <p class="lead text-muted">Discover what's happening in your community this month</p>
+        </div>
+        
+        <!-- Sample Calendar Preview -->
+        <div class="row mb-4">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-calendar-month"></i> December 2024</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>This Week</h6>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <span class="badge bg-success">Dec 18</span>
+                                        <strong>Eco Workshop</strong> - Composting 101
+                                    </li>
+                                    <li class="mb-2">
+                                        <span class="badge bg-primary">Dec 19</span>
+                                        <strong>Art Gallery</strong> - Local Artists Showcase
+                                    </li>
+                                    <li class="mb-2">
+                                        <span class="badge bg-warning">Dec 20</span>
+                                        <strong>Networking</strong> - Professional Mixer
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Next Week</h6>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <span class="badge bg-success">Dec 23</span>
+                                        <strong>Green Market</strong> - Holiday Special
+                                    </li>
+                                    <li class="mb-2">
+                                        <span class="badge bg-primary">Dec 25</span>
+                                        <strong>Concert</strong> - Community Choir
+                                    </li>
+                                    <li class="mb-2">
+                                        <span class="badge bg-warning">Dec 27</span>
+                                        <strong>Social</strong> - Book Club Meetup
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="{{ url_for('events') }}" class="btn btn-primary">View Full Calendar</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,13 +154,13 @@
 
 <!-- Upcoming Events -->
 {% if events %}
-<section class="py-5 bg-light">
+<section class="py-5">
     <div class="container">
-        <h2 class="text-center mb-5">Upcoming Events</h2>
+        <h2 class="text-center mb-5">Featured Upcoming Events</h2>
         <div class="row">
             {% for event in events %}
             <div class="col-md-4 mb-4">
-                <div class="card event-card">
+                <div class="card event-card shadow-sm">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start mb-2">
                             <span class="badge bg-primary category-badge">
@@ -95,21 +194,59 @@
             {% endfor %}
         </div>
         <div class="text-center mt-4">
-            <a href="{{ url_for('events') }}" class="btn btn-primary">View All Events</a>
+            <a href="{{ url_for('events') }}" class="btn btn-primary btn-lg">View All Events</a>
         </div>
     </div>
 </section>
 {% endif %}
 
-<!-- Featured Clubs -->
+<!-- Our Footprint Section -->
+<section class="py-5 bg-success text-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3">Our Environmental Footprint</h2>
+            <p class="lead">Making a positive impact through community action</p>
+        </div>
+        <div class="row">
+            <div class="col-md-3 text-center mb-4">
+                <i class="bi bi-recycle" style="font-size: 3rem;"></i>
+                <h3 class="mt-3">15,000 lbs</h3>
+                <p>Waste Diverted from Landfills</p>
+            </div>
+            <div class="col-md-3 text-center mb-4">
+                <i class="bi bi-tree" style="font-size: 3rem;"></i>
+                <h3 class="mt-3">2,400</h3>
+                <p>Trees Planted This Year</p>
+            </div>
+            <div class="col-md-3 text-center mb-4">
+                <i class="bi bi-bicycle" style="font-size: 3rem;"></i>
+                <h3 class="mt-3">8,500 miles</h3>
+                <p>Carbon-Free Transportation</p>
+            </div>
+            <div class="col-md-3 text-center mb-4">
+                <i class="bi bi-droplet" style="font-size: 3rem;"></i>
+                <h3 class="mt-3">50,000 gal</h3>
+                <p>Water Conserved</p>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <p class="lead">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam. Together, we're building a sustainable future one event at a time.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Our Clubs -->
 {% if clubs %}
 <section class="py-5">
     <div class="container">
-        <h2 class="text-center mb-5">Featured Clubs</h2>
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3">Our Thriving Clubs</h2>
+            <p class="lead text-muted">Join passionate communities building lasting connections</p>
+        </div>
         <div class="row">
             {% for club in clubs %}
             <div class="col-md-4 mb-4">
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-body">
                         <span class="badge bg-secondary category-badge mb-2">
                             {% if club.category == 'sustainable' %}
@@ -134,19 +271,288 @@
             {% endfor %}
         </div>
         <div class="text-center mt-4">
-            <a href="{{ url_for('clubs') }}" class="btn btn-secondary">Explore All Clubs</a>
+            <a href="{{ url_for('clubs') }}" class="btn btn-secondary btn-lg">Explore All Clubs</a>
         </div>
     </div>
 </section>
 {% endif %}
 
-<!-- Call to Action -->
+<!-- Our Team Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3">Our Team</h2>
+            <p class="lead text-muted">Meet the passionate people behind The Journey</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 text-center">
+                    <div class="card-body">
+                        <div class="rounded-circle bg-primary mx-auto mb-3" style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-person text-white" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5>Sarah Chen</h5>
+                        <p class="text-muted">Founder & CEO</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Passionate about building sustainable communities.</p>
+                        <div>
+                            <a href="#" class="btn btn-outline-primary btn-sm me-2"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="btn btn-outline-primary btn-sm"><i class="bi bi-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 text-center">
+                    <div class="card-body">
+                        <div class="rounded-circle bg-success mx-auto mb-3" style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-person text-white" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5>Marcus Rivera</h5>
+                        <p class="text-muted">Community Director</p>
+                        <p>Sed ut perspiciatis unde omnis iste natus error. Expert in community engagement and cultural programming.</p>
+                        <div>
+                            <a href="#" class="btn btn-outline-primary btn-sm me-2"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="btn btn-outline-primary btn-sm"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 text-center">
+                    <div class="card-body">
+                        <div class="rounded-circle bg-warning mx-auto mb-3" style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-person text-white" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5>Emily Rodriguez</h5>
+                        <p class="text-muted">Events Coordinator</p>
+                        <p>At vero eos et accusamus et iusto odio. Specializes in creating memorable experiences and sustainable events.</p>
+                        <div>
+                            <a href="#" class="btn btn-outline-primary btn-sm me-2"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="btn btn-outline-primary btn-sm"><i class="bi bi-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Partners Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3">Our Partners</h2>
+            <p class="lead text-muted">Working together to build stronger communities</p>
+        </div>
+        
+        <!-- Partner Tiers -->
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="card border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-award text-warning" style="font-size: 3rem;"></i>
+                        <h4 class="mt-3">Platinum Partners</h4>
+                        <div class="mt-3">
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <div class="bg-light px-3 py-2 rounded me-3">GreenTech Solutions</div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <div class="bg-light px-3 py-2 rounded me-3">EcoCity Council</div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="bg-light px-3 py-2 rounded me-3">Sustainable Futures</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-shop text-primary" style="font-size: 3rem;"></i>
+                        <h4 class="mt-3">Local Business Partners</h4>
+                        <div class="mt-3">
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <div class="bg-light px-3 py-2 rounded me-3">Artisan Coffee Co.</div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <div class="bg-light px-3 py-2 rounded me-3">Green Garden Bistro</div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="bg-light px-3 py-2 rounded me-3">Culture Canvas Gallery</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <h5>Want to partner with us?</h5>
+            <p class="text-muted">Join our growing network of community-focused organizations</p>
+            <a href="#contact" class="btn btn-outline-primary">Become a Partner</a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3">What Our Community Says</h2>
+            <p class="lead text-muted">Real stories from real members</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="text-warning mb-3">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="mb-3">"The Journey has completely transformed how I connect with my community. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-primary me-3" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-person text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Jessica Martinez</h6>
+                                <small class="text-muted">Green Living Club Member</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="text-warning mb-3">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="mb-3">"As an event organizer, this platform makes it so easy to reach engaged community members. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-success me-3" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-person text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">David Kim</h6>
+                                <small class="text-muted">Cultural Arts Club Manager</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="text-warning mb-3">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="mb-3">"I've met so many like-minded people through The Journey events. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-warning me-3" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-person text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Maya Patel</h6>
+                                <small class="text-muted">Networking Enthusiast</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-5 bg-dark text-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3">Get In Touch</h2>
+            <p class="lead">Ready to join our community or have questions? We'd love to hear from you!</p>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="text-center">
+                            <i class="bi bi-geo-alt text-primary" style="font-size: 2rem;"></i>
+                            <h5 class="mt-3">Visit Us</h5>
+                            <p class="text-light">123 Community Lane<br>Green City, GC 12345<br>United States</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="text-center">
+                            <i class="bi bi-envelope text-primary" style="font-size: 2rem;"></i>
+                            <h5 class="mt-3">Email Us</h5>
+                            <p class="text-light">hello@thejourney.community<br>partnerships@thejourney.community<br>support@thejourney.community</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="text-center">
+                            <i class="bi bi-telephone text-primary" style="font-size: 2rem;"></i>
+                            <h5 class="mt-3">Call Us</h5>
+                            <p class="text-light">+1 (555) 123-4567<br>Mon-Fri 9AM-6PM PST</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="text-center">
+                            <i class="bi bi-chat text-primary" style="font-size: 2rem;"></i>
+                            <h5 class="mt-3">Follow Us</h5>
+                            <div class="mt-3">
+                                <a href="#" class="btn btn-outline-light btn-sm me-2"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="btn btn-outline-light btn-sm me-2"><i class="bi bi-twitter"></i></a>
+                                <a href="#" class="btn btn-outline-light btn-sm me-2"><i class="bi bi-instagram"></i></a>
+                                <a href="#" class="btn btn-outline-light btn-sm"><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
 <section class="py-5 bg-primary text-white">
-    <div class="container text-center">
-        <h2>Ready to Start Your Journey?</h2>
-        <p class="lead">Join our community and discover amazing events near you.</p>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h3>Stay Connected</h3>
+                <p class="mb-0">Get weekly updates on new events, club activities, and community highlights delivered to your inbox.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="email" class="form-control" placeholder="Enter your email">
+                    <button class="btn btn-light" type="button">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-gradient" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container text-center text-white">
+        <h2 class="display-5 mb-3">Ready to Start Your Journey?</h2>
+        <p class="lead mb-4">Join our community and discover amazing events near you. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
         {% if not current_user.is_authenticated %}
-            <a href="{{ url_for('register') }}" class="btn btn-light btn-lg">Get Started Today</a>
+            <a href="{{ url_for('register') }}" class="btn btn-light btn-lg me-3">Get Started Today</a>
+            <a href="{{ url_for('events') }}" class="btn btn-outline-light btn-lg">Browse Events</a>
         {% else %}
             <a href="{{ url_for('create_event') }}" class="btn btn-light btn-lg me-3">Create an Event</a>
             <a href="{{ url_for('create_club') }}" class="btn btn-outline-light btn-lg">Start a Club</a>

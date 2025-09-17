@@ -6,7 +6,10 @@
 <div class="container py-4">
     <div class="row">
         <div class="col-12">
-            <h1 class="mb-4">Welcome back, {{ current_user.first_name }}!</h1>
+            <div class="bg-primary text-white p-4 rounded mb-4">
+                <h1 class="mb-2">Welcome back, {{ current_user.first_name }}!</h1>
+                <p class="mb-0 opacity-75">Continue your journey of community connection and meaningful experiences. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
         </div>
     </div>
     
@@ -51,7 +54,12 @@
                         </div>
                         {% endfor %}
                     {% else %}
-                        <p class="text-muted">No upcoming events. <a href="{{ url_for('events') }}">Discover events</a> to join!</p>
+                        <div class="text-center py-4">
+                            <i class="bi bi-calendar-x text-muted" style="font-size: 3rem;"></i>
+                            <h5 class="mt-3 text-muted">No Upcoming Events</h5>
+                            <p class="text-muted">Sed ut perspiciatis unde omnis iste natus error sit voluptatem. Start exploring amazing events in your community!</p>
+                            <a href="{{ url_for('events') }}" class="btn btn-primary">Discover Events</a>
+                        </div>
                     {% endif %}
                 </div>
             </div>
@@ -77,7 +85,12 @@
                         </div>
                         {% endfor %}
                     {% else %}
-                        <p class="text-muted">No clubs joined yet. <a href="{{ url_for('clubs') }}">Explore clubs</a> to connect with your community!</p>
+                        <div class="text-center py-4">
+                            <i class="bi bi-people text-muted" style="font-size: 3rem;"></i>
+                            <h5 class="mt-3 text-muted">No Clubs Yet</h5>
+                            <p class="text-muted">At vero eos et accusamus et iusto odio dignissimos. Join clubs to build lasting connections with like-minded people!</p>
+                            <a href="{{ url_for('clubs') }}" class="btn btn-secondary">Explore Clubs</a>
+                        </div>
                     {% endif %}
                 </div>
             </div>
