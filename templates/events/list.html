@@ -1,99 +1,280 @@
 {% extends "base.html" %}
 
-{% block title %}Events - The Journey{% endblock %}
+{% block title %}Cultural Events - Discover Authentic Moroccan Experiences{% endblock %}
+
+{% block og_title %}Cultural Events - Discover Authentic Moroccan Experiences{% endblock %}
+{% block og_description %}Explore traditional Moroccan cultural events, workshops, and authentic experiences. Join our community celebrating Morocco's rich heritage.{% endblock %}
 
 {% block content %}
-<div class="container py-4">
+<!-- Page Header -->
+<section class="py-5 bg-gradient-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-3">Cultural Events & Experiences</h1>
+                <p class="lead mb-0">Discover authentic Moroccan traditions through hands-on workshops, cultural celebrations, and community gatherings</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                {% if current_user.is_authenticated and current_user.role in ['club_manager', 'admin'] %}
+                    <a href="{{ url_for('create_event') }}" class="btn btn-secondary btn-lg">
+                        <i class="bi bi-plus-circle me-2"></i>Host Experience
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container py-5">
     <div class="row">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Filter Events</h5>
+        <!-- Filters Sidebar -->
+        <div class="col-lg-3 mb-4">
+            <div class="card border-0 shadow-sm sticky-top" style="top: 100px;">
+                <div class="card-header bg-gradient-secondary text-dark border-0">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-funnel me-2"></i>Find Your Experience
+                    </h5>
                 </div>
                 <div class="card-body">
-                    <form method="GET">
-                        <div class="mb-3">
-                            <label class="form-label">Category</label>
-                            <select name="category" class="form-select">
-                                <option value="">All Categories</option>
-                                <option value="sustainable" {% if selected_category == 'sustainable' %}selected{% endif %}>Sustainable Living</option>
-                                <option value="cultural" {% if selected_category == 'cultural' %}selected{% endif %}>Cultural Experiences</option>
-                                <option value="entertainment" {% if selected_category == 'entertainment' %}selected{% endif %}>Entertainment & Networking</option>
+                    <form method="GET" class="space-y-4">
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-dark">Cultural Category</label>
+                            <select name="category" class="form-select border-2" onchange="this.form.submit()">
+                                <option value="">All Experiences</option>
+                                <option value="sustainable" {% if selected_category == 'sustainable' %}selected{% endif %}>Traditional Crafts</option>
+                                <option value="cultural" {% if selected_category == 'cultural' %}selected{% endif %}>Cultural Heritage</option>
+                                <option value="entertainment" {% if selected_category == 'entertainment' %}selected{% endif %}>Community Gatherings</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">City</label>
-                            <input type="text" name="city" class="form-control" placeholder="Enter city" value="{{ selected_city }}">
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-dark">Destination</label>
+                            <input type="text" name="city" class="form-control border-2" placeholder="Enter city or region..." value="{{ selected_city }}">
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Filter</button>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-search me-2"></i>Search Experiences
+                        </button>
                     </form>
+                    
+                    <hr class="my-4">
+                    
+                    <!-- Quick Stats -->
+                    <div class="text-center">
+                        <h6 class="text-muted mb-3">Popular Destinations</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="?city=Marrakech" class="badge bg-primary bg-opacity-10 text-primary text-decoration-none py-2 px-3">Marrakech</a>
+                            <a href="?city=Fes" class="badge bg-primary bg-opacity-10 text-primary text-decoration-none py-2 px-3">Fes</a>
+                            <a href="?city=Chefchaouen" class="badge bg-primary bg-opacity-10 text-primary text-decoration-none py-2 px-3">Chefchaouen</a>
+                            <a href="?city=Casablanca" class="badge bg-primary bg-opacity-10 text-primary text-decoration-none py-2 px-3">Casablanca</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="col-md-9">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1>Discover Events</h1>
-                {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('create_event') }}" class="btn btn-primary">
-                        <i class="bi bi-plus-circle"></i> Create Event
-                    </a>
-                {% endif %}
-            </div>
-            
+        <!-- Events Grid -->
+        <div class="col-lg-9">
             {% if events %}
-                <div class="row">
+                <!-- Results Header -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="h4 mb-0">
+                        <span class="text-muted">{{ events|length }}</span> 
+                        Authentic Experience{{ 's' if events|length != 1 else '' }}
+                        {% if selected_category or selected_city %}
+                            <small class="text-muted">
+                                {% if selected_category %}in {{ selected_category|title }}{% endif %}
+                                {% if selected_city %}near {{ selected_city }}{% endif %}
+                            </small>
+                        {% endif %}
+                    </h2>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-secondary btn-sm active">
+                            <i class="bi bi-grid"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="row g-4">
                     {% for event in events %}
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <span class="badge bg-primary">
+                    <div class="col-lg-6 col-xl-4">
+                        <div class="card h-100 border-0 shadow-sm fade-in-up" style="transition: all 0.3s ease;">
+                            <div class="card-img-top position-relative overflow-hidden" style="height: 200px;">
+                                <!-- Dynamic background based on category -->
+                                {% if event.category == 'sustainable' %}
+                                    <div class="w-100 h-100 bg-gradient-success d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-tree text-white" style="font-size: 3rem; opacity: 0.8;"></i>
+                                    </div>
+                                {% elif event.category == 'cultural' %}
+                                    <div class="w-100 h-100 bg-gradient-secondary d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-palette text-dark" style="font-size: 3rem; opacity: 0.8;"></i>
+                                    </div>
+                                {% else %}
+                                    <div class="w-100 h-100 bg-gradient-primary d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people text-white" style="font-size: 3rem; opacity: 0.8;"></i>
+                                    </div>
+                                {% endif %}
+                                
+                                <!-- Category Badge -->
+                                <div class="position-absolute top-3 start-3">
+                                    <span class="category-badge {{ event.category }}">
                                         {% if event.category == 'sustainable' %}
-                                            <i class="bi bi-leaf"></i> Sustainable
+                                            <i class="bi bi-leaf"></i> Traditional Crafts
                                         {% elif event.category == 'cultural' %}
-                                            <i class="bi bi-palette"></i> Cultural
+                                            <i class="bi bi-palette"></i> Cultural Heritage
                                         {% else %}
-                                            <i class="bi bi-people"></i> Entertainment
+                                            <i class="bi bi-people"></i> Community
                                         {% endif %}
                                     </span>
-                                    <span class="text-success fw-bold">
+                                </div>
+                                
+                                <!-- Price Badge -->
+                                <div class="position-absolute top-3 end-3">
+                                    <span class="badge bg-dark bg-opacity-75 text-white fw-bold px-3 py-2">
                                         {% if event.price > 0 %}
-                                            ${{ "%.2f"|format(event.price) }}
+                                            ${{ "%.0f"|format(event.price) }}
                                         {% else %}
                                             Free
                                         {% endif %}
                                     </span>
                                 </div>
-                                <h5 class="card-title">{{ event.title }}</h5>
-                                <p class="card-text">{{ event.description[:100] }}...</p>
-                                <div class="mb-2">
-                                    <small class="text-muted">
-                                        <i class="bi bi-calendar"></i> {{ event.date_time.strftime('%B %d, %Y at %I:%M %p') }}
-                                    </small>
-                                </div>
-                                <div class="mb-2">
-                                    <small class="text-muted">
-                                        <i class="bi bi-geo-alt"></i> {{ event.location }}, {{ event.city }}
-                                    </small>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">{{ event.available_spots }} spots left</small>
-                                    <a href="{{ url_for('event_detail', event_id=event.id) }}" class="btn btn-outline-primary">View Details</a>
+                            </div>
+                            
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title mb-2 text-dark">{{ event.title }}</h5>
+                                <p class="card-text text-muted flex-grow-1">{{ event.description[:120] }}{% if event.description|length > 120 %}...{% endif %}</p>
+                                
+                                <!-- Event Details -->
+                                <div class="mt-auto">
+                                    <div class="d-flex align-items-center text-muted small mb-2">
+                                        <i class="bi bi-calendar-event me-2 text-primary"></i>
+                                        <span>{{ event.date_time.strftime('%B %d, %Y') }}</span>
+                                        <span class="mx-2">•</span>
+                                        <span>{{ event.date_time.strftime('%I:%M %p') }}</span>
+                                    </div>
+                                    <div class="d-flex align-items-center text-muted small mb-3">
+                                        <i class="bi bi-geo-alt me-2 text-primary"></i>
+                                        <span>{{ event.location }}, {{ event.city }}</span>
+                                    </div>
+                                    
+                                    <!-- Availability -->
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-success fw-semibold">
+                                            <i class="bi bi-people me-1"></i>
+                                            {{ event.available_spots }} spots available
+                                        </small>
+                                        <a href="{{ url_for('event_detail', event_id=event.id) }}" class="btn btn-outline-primary btn-sm">
+                                            <i class="bi bi-arrow-right me-1"></i>Learn More
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
+                
+                <!-- Load More Button -->
+                {% if events|length >= 9 %}
+                <div class="text-center mt-5">
+                    <button class="btn btn-outline-primary btn-lg">
+                        <i class="bi bi-plus-circle me-2"></i>Load More Experiences
+                    </button>
+                </div>
+                {% endif %}
+                
             {% else %}
+                <!-- Empty State -->
                 <div class="text-center py-5">
-                    <i class="bi bi-calendar-x" style="font-size: 4rem; color: #ccc;"></i>
-                    <h3 class="mt-3">No events found</h3>
-                    <p class="text-muted">Try adjusting your filters or check back later for new events.</p>
+                    <div class="mb-4">
+                        <div class="bg-light rounded-circle mx-auto d-flex align-items-center justify-content-center" style="width: 120px; height: 120px;">
+                            <i class="bi bi-calendar-x text-muted" style="font-size: 3rem;"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-dark mb-3">No Cultural Experiences Found</h3>
+                    <p class="text-muted mb-4 lead">
+                        {% if selected_category or selected_city %}
+                            Try adjusting your filters to discover more authentic Moroccan experiences.
+                        {% else %}
+                            New authentic experiences are being added regularly. Check back soon!
+                        {% endif %}
+                    </p>
+                    <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
+                        {% if selected_category or selected_city %}
+                            <a href="{{ url_for('events') }}" class="btn btn-primary">
+                                <i class="bi bi-arrow-counterclockwise me-2"></i>Clear Filters
+                            </a>
+                        {% endif %}
+                        {% if current_user.is_authenticated and current_user.role in ['club_manager', 'admin'] %}
+                            <a href="{{ url_for('create_event') }}" class="btn btn-secondary">
+                                <i class="bi bi-plus-circle me-2"></i>Create First Experience
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
             {% endif %}
         </div>
     </div>
 </div>
+
+<!-- Cultural Heritage Section -->
+<section class="py-5 bg-light moroccan-pattern">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold text-gradient mb-3">Preserving Morocco's Cultural Heritage</h2>
+            <p class="lead text-muted">Every experience you join helps preserve and celebrate centuries-old traditions</p>
+        </div>
+        <div class="row g-4 text-center">
+            <div class="col-lg-3 col-md-6">
+                <div class="bg-white rounded p-4 h-100 shadow-sm">
+                    <i class="bi bi-hand-thumbs-up text-success mb-3" style="font-size: 2.5rem;"></i>
+                    <h5>Authentic Experiences</h5>
+                    <p class="text-muted small mb-0">Learn from master artisans and cultural experts</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="bg-white rounded p-4 h-100 shadow-sm">
+                    <i class="bi bi-people text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5>Community Connection</h5>
+                    <p class="text-muted small mb-0">Join a passionate community of culture enthusiasts</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="bg-white rounded p-4 h-100 shadow-sm">
+                    <i class="bi bi-shield-check text-warning mb-3" style="font-size: 2.5rem;"></i>
+                    <h5>Heritage Preservation</h5>
+                    <p class="text-muted small mb-0">Support traditional crafts and cultural practices</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="bg-white rounded p-4 h-100 shadow-sm">
+                    <i class="bi bi-heart text-danger mb-3" style="font-size: 2.5rem;"></i>
+                    <h5>Meaningful Impact</h5>
+                    <p class="text-muted small mb-0">Create lasting memories while making a difference</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Enhanced card hover effects
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+            this.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '';
+        });
+    });
+});
+</script>
 {% endblock %}

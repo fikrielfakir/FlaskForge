@@ -1,110 +1,315 @@
 {% extends "base.html" %}
 
-{% block title %}{{ club.name }} - The Journey{% endblock %}
+{% block title %}{{ club.name }} - Moroccan Cultural Community{% endblock %}
+
+{% block og_title %}{{ club.name }} - Moroccan Cultural Community{% endblock %}
+{% block og_description %}{{ club.description[:200] }}{% endblock %}
 
 {% block content %}
-<div class="container py-4">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <span class="badge bg-secondary mb-3">
+<!-- Hero Section -->
+<section class="py-5 position-relative overflow-hidden">
+    <div class="position-absolute top-0 start-0 w-100 h-100">
+        {% if club.category == 'sustainable' %}
+            <div class="bg-gradient-success w-100 h-100"></div>
+        {% elif club.category == 'cultural' %}
+            <div class="bg-gradient-secondary w-100 h-100"></div>
+        {% else %}
+            <div class="bg-gradient-primary w-100 h-100"></div>
+        {% endif %}
+    </div>
+    <div class="position-absolute top-0 start-0 w-100 h-100 moroccan-pattern opacity-25"></div>
+    
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center text-white">
+                <div class="mb-3">
+                    <span class="category-badge {{ club.category }} bg-white bg-opacity-20">
                         {% if club.category == 'sustainable' %}
-                            <i class="bi bi-leaf"></i> Sustainable Living
+                            <i class="bi bi-leaf"></i> Traditional Crafts Community
                         {% elif club.category == 'cultural' %}
-                            <i class="bi bi-palette"></i> Cultural Experiences
+                            <i class="bi bi-palette"></i> Cultural Heritage Society
                         {% else %}
-                            <i class="bi bi-people"></i> Entertainment & Networking
+                            <i class="bi bi-people"></i> Community Circle
                         {% endif %}
                     </span>
-                    
-                    <h1>{{ club.name }}</h1>
-                    <p class="text-muted mb-3">
-                        <i class="bi bi-geo-alt"></i> {{ club.city }}
-                    </p>
-                    
-                    <h5>About This Club</h5>
-                    <p>{{ club.description }}</p>
-                    
-                    <div class="mt-4">
-                        <h6><i class="bi bi-star text-warning"></i> Club Highlights</h6>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <ul class="list-unstyled">
-                                    <li><i class="bi bi-check text-success"></i> Weekly meetups</li>
-                                    <li><i class="bi bi-check text-success"></i> Expert workshops</li>
-                                    <li><i class="bi bi-check text-success"></i> Community projects</li>
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <ul class="list-unstyled">
-                                    <li><i class="bi bi-check text-success"></i> Networking events</li>
-                                    <li><i class="bi bi-check text-success"></i> Member resources</li>
-                                    <li><i class="bi bi-check text-success"></i> Collaborative opportunities</li>
-                                </ul>
-                            </div>
+                </div>
+                <h1 class="display-4 fw-bold mb-4">{{ club.name }}</h1>
+                <p class="lead mb-4">{{ club.description }}</p>
+                
+                <!-- Key Info Row -->
+                <div class="row g-3 text-center mb-4">
+                    <div class="col-md-4">
+                        <div class="bg-white bg-opacity-20 rounded p-3">
+                            <i class="bi bi-geo-alt mb-2" style="font-size: 1.5rem;"></i>
+                            <h6 class="mb-1">{{ club.city }}</h6>
+                            <small>Morocco</small>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="bg-white bg-opacity-20 rounded p-3">
+                            <i class="bi bi-calendar mb-2" style="font-size: 1.5rem;"></i>
+                            <h6 class="mb-1">{{ club.created_at.strftime('%B') }}</h6>
+                            <small>{{ club.created_at.strftime('%Y') }}</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="bg-white bg-opacity-20 rounded p-3">
+                            <i class="bi bi-people mb-2" style="font-size: 1.5rem;"></i>
+                            <h6 class="mb-1">Active</h6>
+                            <small>Community</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <!-- About Community -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <h3 class="text-gradient mb-4">About Our Cultural Community</h3>
+                    <p class="lead text-muted mb-4">{{ club.description }}</p>
                     
-                    <div class="mt-4">
-                        <h6>Club Manager</h6>
-                        <p>{{ club.manager.first_name }} {{ club.manager.last_name }}</p>
+                    <!-- Community Features -->
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <h5 class="text-primary mb-3">
+                                <i class="bi bi-star me-2"></i>Community Highlights
+                            </h5>
+                            <ul class="list-unstyled">
+                                {% if club.category == 'sustainable' %}
+                                    <li class="mb-2"><i class="bi bi-dot text-success"></i> Master craftsman workshops</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-success"></i> Traditional technique sharing</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-success"></i> Artisan mentorship programs</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-success"></i> Craft preservation initiatives</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-success"></i> Monthly skill exchanges</li>
+                                {% elif club.category == 'cultural' %}
+                                    <li class="mb-2"><i class="bi bi-dot text-warning"></i> Cultural heritage education</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-warning"></i> Traditional storytelling circles</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-warning"></i> Historical site visits</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-warning"></i> Festival celebrations</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-warning"></i> Cultural exchange programs</li>
+                                {% else %}
+                                    <li class="mb-2"><i class="bi bi-dot text-danger"></i> Weekly community gatherings</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-danger"></i> Cultural celebration events</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-danger"></i> Member networking sessions</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-danger"></i> Community service projects</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-danger"></i> Social impact initiatives</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-primary mb-3">
+                                <i class="bi bi-heart me-2"></i>Member Benefits
+                            </h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="bi bi-dot text-primary"></i> Exclusive community events</li>
+                                <li class="mb-2"><i class="bi bi-dot text-primary"></i> Priority workshop access</li>
+                                <li class="mb-2"><i class="bi bi-dot text-primary"></i> Cultural mentorship</li>
+                                <li class="mb-2"><i class="bi bi-dot text-primary"></i> Member resource library</li>
+                                <li class="mb-2"><i class="bi bi-dot text-primary"></i> Community networking</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
             
+            <!-- Upcoming Events -->
             {% if club_events %}
-            <div class="card mt-4">
-                <div class="card-header">
-                    <h5>Upcoming Events</h5>
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-gradient-secondary text-dark border-0">
+                    <h4 class="mb-0">
+                        <i class="bi bi-calendar-event me-2"></i>Upcoming Community Events
+                    </h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-0">
                     {% for event in club_events %}
-                    <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-                        <div>
-                            <h6 class="mb-1">{{ event.title }}</h6>
-                            <small class="text-muted">
-                                <i class="bi bi-calendar"></i> {{ event.date_time.strftime('%B %d, %Y at %I:%M %p') }}
-                            </small>
+                    <div class="border-bottom p-4 {% if loop.last %}border-0{% endif %}">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="mb-2">
+                                    <a href="{{ url_for('event_detail', event_id=event.id) }}" class="text-decoration-none">
+                                        {{ event.title }}
+                                    </a>
+                                </h5>
+                                <p class="text-muted mb-2">{{ event.description[:100] }}...</p>
+                                <div class="d-flex gap-3 text-muted small">
+                                    <span><i class="bi bi-calendar me-1"></i>{{ event.date_time.strftime('%B %d, %Y') }}</span>
+                                    <span><i class="bi bi-clock me-1"></i>{{ event.date_time.strftime('%I:%M %p') }}</span>
+                                    <span><i class="bi bi-geo-alt me-1"></i>{{ event.city }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-md-end">
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">
+                                        {% if event.price > 0 %}
+                                            ${{ "%.0f"|format(event.price) }}
+                                        {% else %}
+                                            Free
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <a href="{{ url_for('event_detail', event_id=event.id) }}" class="btn btn-outline-primary btn-sm">
+                                    View Details
+                                </a>
+                            </div>
                         </div>
-                        <a href="{{ url_for('event_detail', event_id=event.id) }}" class="btn btn-sm btn-outline-primary">View Details</a>
                     </div>
                     {% endfor %}
                 </div>
             </div>
             {% endif %}
+            
+            <!-- Community Manager -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h4 class="text-gradient mb-3">
+                        <i class="bi bi-person-badge me-2"></i>Community Leadership
+                    </h4>
+                    <div class="d-flex align-items-center">
+                        <div class="bg-primary bg-opacity-10 rounded-circle p-3 me-3">
+                            <i class="bi bi-person text-primary" style="font-size: 1.5rem;"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">{{ club.manager.first_name }} {{ club.manager.last_name }}</h5>
+                            <p class="text-muted mb-1">Community Manager & Cultural Enthusiast</p>
+                            <small class="text-primary">
+                                <i class="bi bi-geo-alt me-1"></i>{{ club.city }}, Morocco
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5>Join This Club</h5>
-                    
-                    {% if current_user.is_authenticated %}
-                        {% if not is_member %}
-                            <form method="POST" action="{{ url_for('join_club', club_id=club.id) }}">
-                                {{ join_form.hidden_tag() }}
-                                <button type="submit" class="btn btn-primary w-100">
-                                    <i class="bi bi-plus"></i> Join Club
-                                </button>
-                            </form>
-                            <p class="text-muted small mt-2">Join to access exclusive events and connect with members.</p>
+        <!-- Join Sidebar -->
+        <div class="col-lg-4">
+            <div class="sticky-top" style="top: 100px;">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-4 text-center">
+                        <h4 class="mb-4">Join Our Community</h4>
+                        
+                        {% if current_user.is_authenticated %}
+                            {% if not is_member %}
+                                <div class="mb-4">
+                                    <div class="bg-light rounded p-3 mb-3">
+                                        <i class="bi bi-people text-primary mb-2" style="font-size: 2rem;"></i>
+                                        <h6 class="text-muted">Free Membership</h6>
+                                        <p class="small text-muted mb-0">Join a passionate community celebrating Moroccan heritage</p>
+                                    </div>
+                                </div>
+                                <form method="POST" action="{{ url_for('join_club', club_id=club.id) }}">
+                                    {{ join_form.hidden_tag() }}
+                                    <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                                        <i class="bi bi-plus me-2"></i>Join Community
+                                    </button>
+                                </form>
+                                <p class="text-muted small">
+                                    Become part of a vibrant community dedicated to preserving and celebrating Moroccan culture
+                                </p>
+                            {% else %}
+                                <div class="alert alert-success">
+                                    <i class="bi bi-check-circle mb-2" style="font-size: 1.5rem;"></i>
+                                    <h6>Welcome, Community Member!</h6>
+                                    <p class="small mb-0">You're part of this amazing cultural community</p>
+                                </div>
+                            {% endif %}
                         {% else %}
-                            <div class="alert alert-success">
-                                <i class="bi bi-check-circle"></i> You're a member of this club!
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle mb-2"></i>
+                                <h6>Join The Cultural Journey</h6>
+                                <p class="small mb-3">Create your account to join cultural communities and participate in authentic experiences</p>
+                                <div class="d-grid gap-2">
+                                    <a href="{{ url_for('register') }}" class="btn btn-primary">
+                                        <i class="bi bi-person-plus me-2"></i>Sign Up
+                                    </a>
+                                    <a href="{{ url_for('login') }}" class="btn btn-outline-primary">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                                    </a>
+                                </div>
                             </div>
                         {% endif %}
-                    {% else %}
-                        <div class="alert alert-info">
-                            <h6><i class="bi bi-info-circle"></i> Ready to Join?</h6>
-                            <p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Create your account to join this amazing community!</p>
-                            <a href="{{ url_for('login') }}" class="btn btn-primary btn-sm me-2">Login</a>
-                            <a href="{{ url_for('register') }}" class="btn btn-outline-primary btn-sm">Sign Up</a>
+                        
+                        <!-- Community Stats -->
+                        <hr class="my-4">
+                        <div class="row g-3 text-center">
+                            <div class="col-4">
+                                <h6 class="text-primary mb-1">Active</h6>
+                                <small class="text-muted">Status</small>
+                            </div>
+                            <div class="col-4">
+                                <h6 class="text-primary mb-1">{{ club.city }}</h6>
+                                <small class="text-muted">Location</small>
+                            </div>
+                            <div class="col-4">
+                                <h6 class="text-primary mb-1">{{ club.created_at.strftime('%Y') }}</h6>
+                                <small class="text-muted">Founded</small>
+                            </div>
                         </div>
-                    {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Community Values -->
+                <div class="card border-0 shadow-sm mt-4">
+                    <div class="card-body p-4">
+                        <h6 class="text-center mb-3 text-gradient">Our Values</h6>
+                        <div class="small text-center space-y-2">
+                            <div class="mb-2">
+                                <i class="bi bi-shield-check text-success me-2"></i>
+                                Authentic cultural preservation
+                            </div>
+                            <div class="mb-2">
+                                <i class="bi bi-people text-primary me-2"></i>
+                                Inclusive community building
+                            </div>
+                            <div class="mb-2">
+                                <i class="bi bi-heart text-danger me-2"></i>
+                                Passionate heritage sharing
+                            </div>
+                            <div>
+                                <i class="bi bi-star text-warning me-2"></i>
+                                Excellence in traditions
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Similar Communities -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold text-gradient">Explore More Communities</h2>
+            <p class="lead text-muted">Discover other cultural communities celebrating Morocco's rich heritage</p>
+        </div>
+        <div class="text-center">
+            <a href="{{ url_for('clubs') }}" class="btn btn-primary btn-lg">
+                <i class="bi bi-compass me-2"></i>Browse All Communities
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Add join button loading state
+document.addEventListener('DOMContentLoaded', function() {
+    const joinBtn = document.querySelector('form[action*="join_club"] button');
+    if (joinBtn) {
+        joinBtn.addEventListener('click', function() {
+            this.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Joining...';
+            this.disabled = true;
+        });
+    }
+});
+</script>
 {% endblock %}

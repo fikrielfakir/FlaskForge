@@ -1,136 +1,342 @@
 {% extends "base.html" %}
 
-{% block title %}{{ event.title }} - The Journey{% endblock %}
+{% block title %}{{ event.title }} - Authentic Moroccan Cultural Experience{% endblock %}
+
+{% block og_title %}{{ event.title }} - Authentic Moroccan Cultural Experience{% endblock %}
+{% block og_description %}{{ event.description[:200] }}{% endblock %}
 
 {% block content %}
-<div class="container py-4">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <span class="badge bg-primary">
-                            {% if event.category == 'sustainable' %}
-                                <i class="bi bi-leaf"></i> Sustainable Living
-                            {% elif event.category == 'cultural' %}
-                                <i class="bi bi-palette"></i> Cultural Experiences
-                            {% else %}
-                                <i class="bi bi-people"></i> Entertainment & Networking
-                            {% endif %}
-                        </span>
-                        <span class="h4 text-success mb-0">
-                            {% if event.price > 0 %}
-                                ${{ "%.2f"|format(event.price) }}
-                            {% else %}
-                                Free
-                            {% endif %}
-                        </span>
-                    </div>
-                    
-                    <h1>{{ event.title }}</h1>
-                    
-                    <div class="row mb-4">
-                        <div class="col-md-6">
-                            <h6><i class="bi bi-calendar"></i> Date & Time</h6>
-                            <p>{{ event.date_time.strftime('%A, %B %d, %Y at %I:%M %p') }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <h6><i class="bi bi-geo-alt"></i> Location</h6>
-                            <p>{{ event.location }}<br>{{ event.city }}</p>
-                        </div>
-                    </div>
-                    
-                    <h5>About This Event</h5>
-                    <p>{{ event.description }}</p>
-                    
-                    <div class="row mt-4">
-                        <div class="col-md-6">
-                            <h6><i class="bi bi-check-circle text-success"></i> What's Included</h6>
-                            <ul class="list-unstyled">
-                                <li>• Expert guidance and materials</li>
-                                <li>• Light refreshments</li>
-                                <li>• Networking opportunities</li>
-                                <li>• Take-home resources</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <h6><i class="bi bi-info-circle text-primary"></i> What to Bring</h6>
-                            <ul class="list-unstyled">
-                                <li>• Comfortable attire</li>
-                                <li>• Notebook and pen</li>
-                                <li>• Open mind and enthusiasm</li>
-                                <li>• Water bottle (eco-friendly!)</li>
-                            </ul>
+<!-- Hero Section -->
+<section class="py-5 position-relative overflow-hidden">
+    <div class="position-absolute top-0 start-0 w-100 h-100">
+        {% if event.category == 'sustainable' %}
+            <div class="bg-gradient-success w-100 h-100"></div>
+        {% elif event.category == 'cultural' %}
+            <div class="bg-gradient-secondary w-100 h-100"></div>
+        {% else %}
+            <div class="bg-gradient-primary w-100 h-100"></div>
+        {% endif %}
+    </div>
+    <div class="position-absolute top-0 start-0 w-100 h-100 moroccan-pattern opacity-25"></div>
+    
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center text-white">
+                <div class="mb-3">
+                    <span class="category-badge {{ event.category }} bg-white bg-opacity-20">
+                        {% if event.category == 'sustainable' %}
+                            <i class="bi bi-leaf"></i> Traditional Crafts
+                        {% elif event.category == 'cultural' %}
+                            <i class="bi bi-palette"></i> Cultural Heritage
+                        {% else %}
+                            <i class="bi bi-people"></i> Community Experience
+                        {% endif %}
+                    </span>
+                </div>
+                <h1 class="display-4 fw-bold mb-4">{{ event.title }}</h1>
+                <p class="lead mb-4">{{ event.description[:200] }}{% if event.description|length > 200 %}...{% endif %}</p>
+                
+                <!-- Key Details Row -->
+                <div class="row g-3 text-center mb-4">
+                    <div class="col-md-3">
+                        <div class="bg-white bg-opacity-20 rounded p-3">
+                            <i class="bi bi-calendar-event mb-2" style="font-size: 1.5rem;"></i>
+                            <h6 class="mb-1">{{ event.date_time.strftime('%b %d') }}</h6>
+                            <small>{{ event.date_time.strftime('%Y') }}</small>
                         </div>
                     </div>
-                    
-                    {% if event.club %}
-                    <div class="mt-4">
-                        <h6>Hosted by</h6>
-                        <a href="{{ url_for('club_detail', club_id=event.club.id) }}" class="text-decoration-none">
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-people-fill me-2"></i>
-                                <span>{{ event.club.name }}</span>
-                            </div>
-                        </a>
+                    <div class="col-md-3">
+                        <div class="bg-white bg-opacity-20 rounded p-3">
+                            <i class="bi bi-clock mb-2" style="font-size: 1.5rem;"></i>
+                            <h6 class="mb-1">{{ event.date_time.strftime('%I:%M %p') }}</h6>
+                            <small>Local Time</small>
+                        </div>
                     </div>
-                    {% endif %}
+                    <div class="col-md-3">
+                        <div class="bg-white bg-opacity-20 rounded p-3">
+                            <i class="bi bi-geo-alt mb-2" style="font-size: 1.5rem;"></i>
+                            <h6 class="mb-1">{{ event.city }}</h6>
+                            <small>Morocco</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="bg-white bg-opacity-20 rounded p-3">
+                            <i class="bi bi-currency-dollar mb-2" style="font-size: 1.5rem;"></i>
+                            <h6 class="mb-1">
+                                {% if event.price > 0 %}
+                                    ${{ "%.0f"|format(event.price) }}
+                                {% else %}
+                                    Free
+                                {% endif %}
+                            </h6>
+                            <small>Per Person</small>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <!-- Event Description -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <h3 class="text-gradient mb-4">About This Cultural Experience</h3>
+                    <p class="lead text-muted mb-4">{{ event.description }}</p>
+                    
+                    <!-- Experience Details -->
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <h5 class="text-primary mb-3">
+                                <i class="bi bi-check-circle me-2"></i>What's Included
+                            </h5>
+                            <ul class="list-unstyled">
+                                {% if event.category == 'sustainable' %}
+                                    <li class="mb-2"><i class="bi bi-dot text-success"></i> Expert artisan guidance</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-success"></i> Traditional materials & tools</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-success"></i> Authentic techniques demonstration</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-success"></i> Take-home handcrafted piece</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-success"></i> Traditional mint tea & pastries</li>
+                                {% elif event.category == 'cultural' %}
+                                    <li class="mb-2"><i class="bi bi-dot text-warning"></i> Cultural expert storytelling</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-warning"></i> Traditional music & dance</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-warning"></i> Historical context & meaning</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-warning"></i> Interactive participation</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-warning"></i> Cultural keepsake</li>
+                                {% else %}
+                                    <li class="mb-2"><i class="bi bi-dot text-danger"></i> Community welcome ceremony</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-danger"></i> Traditional meal sharing</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-danger"></i> Cultural exchange activities</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-danger"></i> Group activities & games</li>
+                                    <li class="mb-2"><i class="bi bi-dot text-danger"></i> Community membership invitation</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-primary mb-3">
+                                <i class="bi bi-info-circle me-2"></i>What to Bring
+                            </h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="bi bi-dot text-primary"></i> Comfortable, modest clothing</li>
+                                <li class="mb-2"><i class="bi bi-dot text-primary"></i> Notebook for insights</li>
+                                <li class="mb-2"><i class="bi bi-dot text-primary"></i> Open heart & curious mind</li>
+                                <li class="mb-2"><i class="bi bi-dot text-primary"></i> Camera (if desired)</li>
+                                <li class="mb-2"><i class="bi bi-dot text-primary"></i> Water bottle</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Location Details -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <h4 class="text-gradient mb-3">
+                        <i class="bi bi-geo-alt me-2"></i>Experience Location
+                    </h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Venue</h6>
+                            <p class="mb-3">{{ event.location }}</p>
+                            <h6 class="text-muted">City</h6>
+                            <p class="mb-3">{{ event.city }}, Morocco</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="bg-light rounded p-3 text-center">
+                                <i class="bi bi-map text-primary mb-2" style="font-size: 2rem;"></i>
+                                <p class="small text-muted mb-0">Detailed directions will be provided upon registration</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Host Information -->
+            {% if event.club %}
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h4 class="text-gradient mb-3">
+                        <i class="bi bi-people me-2"></i>Hosted by Cultural Community
+                    </h4>
+                    <div class="d-flex align-items-center">
+                        <div class="bg-primary bg-opacity-10 rounded-circle p-3 me-3">
+                            <i class="bi bi-people text-primary" style="font-size: 1.5rem;"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">
+                                <a href="{{ url_for('club_detail', club_id=event.club.id) }}" class="text-decoration-none">
+                                    {{ event.club.name }}
+                                </a>
+                            </h5>
+                            <p class="text-muted mb-1">{{ event.club.description[:100] }}...</p>
+                            <small class="text-primary">
+                                <i class="bi bi-geo-alt me-1"></i>{{ event.club.city }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
         
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5>Event Details</h5>
-                    
-                    <div class="mb-3">
-                        <strong>Capacity:</strong> {{ event.capacity }} people
-                    </div>
-                    
-                    <div class="mb-3">
-                        <strong>Available Spots:</strong> 
-                        <span class="{% if event.available_spots <= 5 %}text-warning{% elif event.available_spots == 0 %}text-danger{% else %}text-success{% endif %}">
-                            {{ event.available_spots }}
-                        </span>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <strong>Organizer:</strong> {{ event.creator.first_name }} {{ event.creator.last_name }}
-                    </div>
-                    
-                    {% if current_user.is_authenticated %}
-                        {% if not is_registered %}
-                            {% if event.available_spots > 0 %}
-                                <form method="POST" action="{{ url_for('register_for_event', event_id=event.id) }}">
-                                    {{ registration_form.hidden_tag() }}
-                                    <button type="submit" class="btn btn-primary w-100">
-                                        {% if event.price > 0 %}
-                                            Register & Pay ${{ "%.2f"|format(event.price) }}
-                                        {% else %}
-                                            Register for Free
-                                        {% endif %}
-                                    </button>
-                                </form>
+        <!-- Registration Sidebar -->
+        <div class="col-lg-4">
+            <div class="sticky-top" style="top: 100px;">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-4">
+                        <h4 class="text-center mb-4">Join This Experience</h4>
+                        
+                        <!-- Availability -->
+                        <div class="text-center mb-4">
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <div class="bg-light rounded p-3">
+                                        <h5 class="text-primary mb-1">{{ event.capacity }}</h5>
+                                        <small class="text-muted">Total Spots</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="bg-light rounded p-3">
+                                        <h5 class="text-success mb-1">{{ event.available_spots }}</h5>
+                                        <small class="text-muted">Available</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% if current_user.is_authenticated %}
+                            {% if not is_registered %}
+                                {% if event.available_spots > 0 %}
+                                    <form method="POST" action="{{ url_for('register_for_event', event_id=event.id) }}">
+                                        {{ registration_form.hidden_tag() }}
+                                        <div class="text-center mb-3">
+                                            <div class="h3 text-primary mb-1">
+                                                {% if event.price > 0 %}
+                                                    ${{ "%.0f"|format(event.price) }}
+                                                {% else %}
+                                                    Free
+                                                {% endif %}
+                                            </div>
+                                            <small class="text-muted">Per person</small>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                                            {% if event.price > 0 %}
+                                                <i class="bi bi-credit-card me-2"></i>Register & Pay
+                                            {% else %}
+                                                <i class="bi bi-check-circle me-2"></i>Register Free
+                                            {% endif %}
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <div class="alert alert-warning text-center">
+                                        <i class="bi bi-exclamation-triangle mb-2" style="font-size: 1.5rem;"></i>
+                                        <h6>Experience Full</h6>
+                                        <p class="small mb-0">This cultural experience has reached capacity</p>
+                                    </div>
+                                {% endif %}
                             {% else %}
-                                <button class="btn btn-secondary w-100" disabled>Event Full</button>
+                                <div class="alert alert-success text-center">
+                                    <i class="bi bi-check-circle mb-2" style="font-size: 1.5rem;"></i>
+                                    <h6>You're Registered!</h6>
+                                    <p class="small mb-0">We look forward to sharing this cultural journey with you</p>
+                                </div>
                             {% endif %}
                         {% else %}
-                            <div class="alert alert-success">
-                                <i class="bi bi-check-circle"></i> You're registered for this event!
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <div class="h3 text-primary mb-1">
+                                        {% if event.price > 0 %}
+                                            ${{ "%.0f"|format(event.price) }}
+                                        {% else %}
+                                            Free
+                                        {% endif %}
+                                    </div>
+                                    <small class="text-muted">Per person</small>
+                                </div>
+                                <div class="alert alert-info">
+                                    <i class="bi bi-info-circle mb-2"></i>
+                                    <h6>Join The Cultural Journey</h6>
+                                    <p class="small mb-3">Create your account to register for authentic Moroccan experiences</p>
+                                    <div class="d-grid gap-2">
+                                        <a href="{{ url_for('register') }}" class="btn btn-primary">
+                                            <i class="bi bi-person-plus me-2"></i>Sign Up
+                                        </a>
+                                        <a href="{{ url_for('login') }}" class="btn btn-outline-primary">
+                                            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         {% endif %}
-                    {% else %}
-                        <div class="alert alert-info">
-                            <h6><i class="bi bi-info-circle"></i> Join The Journey</h6>
-                            <p class="mb-2">Become a member to register for events, join clubs, and connect with your community.</p>
-                            <a href="{{ url_for('login') }}" class="btn btn-primary btn-sm me-2">Login</a>
-                            <a href="{{ url_for('register') }}" class="btn btn-outline-primary btn-sm">Sign Up</a>
+                        
+                        <!-- Additional Info -->
+                        <hr class="my-4">
+                        <div class="small text-muted text-center">
+                            <div class="mb-2">
+                                <i class="bi bi-shield-check me-1"></i>
+                                Authentic cultural experience
+                            </div>
+                            <div class="mb-2">
+                                <i class="bi bi-people me-1"></i>
+                                Community-verified
+                            </div>
+                            <div>
+                                <i class="bi bi-heart me-1"></i>
+                                Supporting local heritage
+                            </div>
                         </div>
-                    {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Organizer Info -->
+                <div class="card border-0 shadow-sm mt-4">
+                    <div class="card-body p-4 text-center">
+                        <div class="bg-primary bg-opacity-10 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                            <i class="bi bi-person text-primary" style="font-size: 1.5rem;"></i>
+                        </div>
+                        <h6 class="mb-1">Experience Organizer</h6>
+                        <p class="text-muted mb-0">{{ event.creator.first_name }} {{ event.creator.last_name }}</p>
+                        <small class="text-muted">Cultural Heritage Enthusiast</small>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Similar Experiences -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold text-gradient">More Cultural Experiences</h2>
+            <p class="lead text-muted">Explore other authentic Moroccan traditions and heritage activities</p>
+        </div>
+        <div class="text-center">
+            <a href="{{ url_for('events') }}" class="btn btn-primary btn-lg">
+                <i class="bi bi-compass me-2"></i>Discover More Experiences
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Smooth scroll to registration
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click tracking for registration button
+    const registerBtn = document.querySelector('form[action*="register_for_event"] button');
+    if (registerBtn) {
+        registerBtn.addEventListener('click', function() {
+            // Add loading state
+            this.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+            this.disabled = true;
+        });
+    }
+});
+</script>
 {% endblock %}
