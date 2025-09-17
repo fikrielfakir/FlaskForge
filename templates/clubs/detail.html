@@ -83,6 +83,7 @@
                     {% if current_user.is_authenticated %}
                         {% if not is_member %}
                             <form method="POST" action="{{ url_for('join_club', club_id=club.id) }}">
+                                {{ join_form.hidden_tag() }}
                                 <button type="submit" class="btn btn-primary w-100">
                                     <i class="bi bi-plus"></i> Join Club
                                 </button>

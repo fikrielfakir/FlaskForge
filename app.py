@@ -2,10 +2,12 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SelectField, DecimalField, DateTimeField, PasswordField, EmailField
+from flask_wtf import FlaskForm, CSRFProtect
+from flask_wtf.csrf import CSRFError
+from wtforms import StringField, TextAreaField, SelectField, DecimalField, DateTimeField, PasswordField, EmailField, IntegerField
 from wtforms.validators import DataRequired, Email, Length, NumberRange
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.middleware.proxy_fix import ProxyFix
 from datetime import datetime
 from decimal import Decimal
 from sqlalchemy import Numeric
@@ -19,20 +21,34 @@ load_dotenv()
 
 # Initialize Flask app
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SESSION_SECRET', 'dev-key-change-in-production')
-if app.config['SECRET_KEY'] == 'dev-key-change-in-production' and os.environ.get('FLASK_ENV') == 'production':
-    raise ValueError("SESSION_SECRET environment variable is required in production")
+app.secret_key = os.environ.get('SESSION_SECRET')
+if not app.secret_key:
+    raise ValueError("SESSION_SECRET environment variable is required")
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Security configurations
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+app.config['SESSION_COOKIE_SECURE'] = True  # HTTPS in production
+
+# Add ProxyFix for Replit environment
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+
 # Initialize extensions
 db = SQLAlchemy(app)
+csrf = CSRFProtect(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'  # type: ignore
 
 # Set up Stripe
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+
+# CSRF error handler
+@app.errorhandler(CSRFError)
+def csrf_error(error):
+    flash('The form submission was invalid. Please try again.', 'error')
+    return redirect(url_for('index'))
 
 # User loader for Flask-Login
 @login_manager.user_loader
@@ -162,7 +178,7 @@ class EventForm(FlaskForm):
     location = StringField('Location', validators=[DataRequired(), Length(min=5, max=200)])
     city = StringField('City', validators=[DataRequired(), Length(min=2, max=100)])
     price = DecimalField('Price ($)', validators=[NumberRange(min=0, max=1000)])
-    capacity = StringField('Capacity', validators=[DataRequired()])
+    capacity = IntegerField('Capacity', validators=[DataRequired(), NumberRange(min=1, max=10000)])
 
 class ClubForm(FlaskForm):
     name = StringField('Club Name', validators=[DataRequired(), Length(min=3, max=100)])
@@ -173,6 +189,13 @@ class ClubForm(FlaskForm):
         ('entertainment', 'Entertainment & Networking')
     ], validators=[DataRequired()])
     city = StringField('City', validators=[DataRequired(), Length(min=2, max=100)])
+
+# Simple CSRF-protected forms for POST actions
+class EventRegistrationForm(FlaskForm):
+    pass  # Only needs CSRF token
+
+class ClubJoinForm(FlaskForm):
+    pass  # Only needs CSRF token
 
 # Routes
 @app.route('/')
@@ -279,7 +302,8 @@ def event_detail(event_id):
         ).first()
         is_registered = registration is not None
     
-    return render_template('events/detail.html', event=event, is_registered=is_registered)
+    registration_form = EventRegistrationForm()
+    return render_template('events/detail.html', event=event, is_registered=is_registered, registration_form=registration_form)
 
 @app.route('/events/create', methods=['GET', 'POST'])
 @login_required
@@ -295,9 +319,7 @@ def create_event():
         event.location = form.location.data
         event.city = form.city.data
         event.price = form.price.data or 0
-        capacity_str = form.capacity.data
-        if capacity_str:
-            event.capacity = int(capacity_str)
+        event.capacity = form.capacity.data
         event.creator_id = current_user.id
         db.session.add(event)
         db.session.commit()
@@ -338,8 +360,9 @@ def club_detail(club_id):
         Event.date_time > datetime.now()
     ).order_by(Event.date_time.asc()).all()
     
+    join_form = ClubJoinForm()
     return render_template('clubs/detail.html', club=club, 
-                         is_member=is_member, club_events=club_events)
+                         is_member=is_member, club_events=club_events, join_form=join_form)
 
 @app.route('/clubs/create', methods=['GET', 'POST'])
 @login_required
@@ -375,6 +398,10 @@ def create_club():
 @app.route('/events/<int:event_id>/register', methods=['POST'])
 @login_required
 def register_for_event(event_id):
+    form = EventRegistrationForm()
+    if not form.validate_on_submit():
+        flash('Invalid request. Please try again.', 'error')
+        return redirect(url_for('event_detail', event_id=event_id))
     try:
         with db.session.begin():
             # Lock the event row to prevent race conditions
@@ -415,6 +442,11 @@ def register_for_event(event_id):
 @app.route('/clubs/<int:club_id>/join', methods=['POST'])
 @login_required
 def join_club(club_id):
+    form = ClubJoinForm()
+    if not form.validate_on_submit():
+        flash('Invalid request. Please try again.', 'error')
+        return redirect(url_for('club_detail', club_id=club_id))
+    
     club = Club.query.get_or_404(club_id)
     
     try:
@@ -439,4 +471,6 @@ def join_club(club_id):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # Configure debug mode from environment
+    app.config['DEBUG'] = os.environ.get('FLASK_DEBUG', '').lower() in ('true', '1', 'yes')
+    app.run(host='0.0.0.0', port=5000, debug=app.config['DEBUG'])
