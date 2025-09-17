@@ -283,6 +283,7 @@ def event_detail(event_id):
 
 @app.route('/events/create', methods=['GET', 'POST'])
 @login_required
+@require_role('club_manager')
 def create_event():
     form = EventForm()
     if form.validate_on_submit():
@@ -357,6 +358,7 @@ def create_club():
         # Update user role to club_manager if they're a regular user
         if current_user.role == 'user':
             current_user.role = 'club_manager'
+            db.session.add(current_user)
         
         # Auto-join creator as member
         membership = ClubMembership()
@@ -373,35 +375,40 @@ def create_club():
 @app.route('/events/<int:event_id>/register', methods=['POST'])
 @login_required
 def register_for_event(event_id):
-    event = Event.query.get_or_404(event_id)
+    try:
+        with db.session.begin():
+            # Lock the event row to prevent race conditions
+            event = Event.query.with_for_update().get(event_id)
+            if not event:
+                flash('Event not found.', 'error')
+                return redirect(url_for('events'))
+            
+            # Check capacity atomically within the transaction
+            current_registrations = EventRegistration.query.filter_by(event_id=event_id).count()
+            if current_registrations >= event.capacity:
+                flash('Sorry, this event is full.', 'error')
+                return redirect(url_for('event_detail', event_id=event_id))
+            
+            # Create registration
+            registration = EventRegistration()
+            registration.user_id = current_user.id
+            registration.event_id = event_id
+            registration.payment_status = 'paid' if event.price == 0 else 'pending'
+            db.session.add(registration)
+            # Commit happens automatically when exiting the 'with' block
+        
+        if event.price > 0:
+            # TODO: Integrate Stripe checkout here
+            flash('Registration pending payment. Payment integration coming soon!', 'info')
+        else:
+            flash('Successfully registered for the event!', 'success')
     
-    # Check if already registered
-    existing = EventRegistration.query.filter_by(
-        user_id=current_user.id,
-        event_id=event_id
-    ).first()
-    
-    if existing:
+    except IntegrityError:
+        db.session.rollback()
         flash('You are already registered for this event.', 'warning')
-        return redirect(url_for('event_detail', event_id=event_id))
-    
-    # Check capacity
-    if event.available_spots <= 0:
-        flash('Sorry, this event is full.', 'error')
-        return redirect(url_for('event_detail', event_id=event_id))
-    
-    # Create registration
-    registration = EventRegistration()
-    registration.user_id = current_user.id
-    registration.event_id = event_id
-    registration.payment_status = 'paid' if event.price == 0 else 'pending'
-    db.session.add(registration)
-    db.session.commit()
-    
-    if event.price > 0:
-        flash('Registration pending payment. Payment integration coming soon!', 'info')
-    else:
-        flash('Successfully registered for the event!', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash('An error occurred during registration. Please try again.', 'error')
     
     return redirect(url_for('event_detail', event_id=event_id))
 
