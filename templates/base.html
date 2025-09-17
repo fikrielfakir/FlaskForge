@@ -1,67 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}The Journey - Community Events{% endblock %}</title>
+    <title>{% block title %}Discover Morocco - Cultural Events & Travel Experiences{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom Moroccan Theme -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
     
-    <style>
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 4rem 0;
-        }
-        .card {
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .category-badge {
-            font-size: 0.8rem;
-        }
-        .event-card {
-            height: 100%;
-        }
-        .footer {
-            background-color: #343a40;
-            color: white;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-    </style>
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="Discover authentic Moroccan culture through exclusive events, traditional experiences, and community gatherings. Join our journey through Morocco's rich heritage.">
+    <meta name="keywords" content="Morocco, culture, events, travel, tourism, traditional, experiences, community">
+    <meta name="author" content="The Journey">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}Discover Morocco - Cultural Events & Travel Experiences{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Discover authentic Moroccan culture through exclusive events, traditional experiences, and community gatherings.{% endblock %}">
+    <meta property="og:image" content="{{ url_for('static', filename='img/logo.png', _external=True) }}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="{% block twitter_title %}Discover Morocco - Cultural Events & Travel Experiences{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Discover authentic Moroccan culture through exclusive events, traditional experiences, and community gatherings.{% endblock %}">
+    <meta property="twitter:image" content="{{ url_for('static', filename='img/logo.png', _external=True) }}">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNavbar">
         <div class="container">
-            <a class="navbar-brand" href="{{ url_for('index') }}">
-                <i class="bi bi-compass"></i> The Journey
+            <a class="navbar-brand" href="{{ url_for('index') }}" aria-label="The Journey - Home">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="The Journey Logo" height="36" class="d-inline-block align-text-top">
             </a>
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('events') }}">
-                            <i class="bi bi-calendar-event"></i> Events
+                        <a class="nav-link {% if request.endpoint == 'events' %}active{% endif %}" href="{{ url_for('events') }}">
+                            <i class="bi bi-calendar-event me-1"></i> Events
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('clubs') }}">
-                            <i class="bi bi-people"></i> Clubs
+                        <a class="nav-link {% if request.endpoint == 'clubs' %}active{% endif %}" href="{{ url_for('clubs') }}">
+                            <i class="bi bi-people me-1"></i> Clubs
                         </a>
                     </li>
                 </ul>
@@ -69,34 +61,44 @@
                 <ul class="navbar-nav">
                     {% if current_user.is_authenticated %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                                <i class="bi bi-person-circle"></i> {{ current_user.first_name }}
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle me-1"></i> 
+                                <span class="d-none d-md-inline">{{ current_user.first_name }}</span>
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0">
+                                <li>
+                                    <h6 class="dropdown-header">
+                                        <i class="bi bi-person-circle me-2"></i>
+                                        {{ current_user.first_name }} {{ current_user.last_name }}
+                                    </h6>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{{ url_for('dashboard') }}">
-                                    <i class="bi bi-speedometer2"></i> Dashboard
+                                    <i class="bi bi-speedometer2 me-2"></i> Dashboard
                                 </a></li>
+                                {% if current_user.role in ['club_manager', 'admin'] %}
                                 <li><a class="dropdown-item" href="{{ url_for('create_event') }}">
-                                    <i class="bi bi-plus-circle"></i> Create Event
+                                    <i class="bi bi-plus-circle me-2"></i> Create Event
                                 </a></li>
+                                {% endif %}
                                 <li><a class="dropdown-item" href="{{ url_for('create_club') }}">
-                                    <i class="bi bi-plus-square"></i> Create Club
+                                    <i class="bi bi-plus-square me-2"></i> Create Club
                                 </a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{{ url_for('logout') }}">
-                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}">
+                                    <i class="bi bi-box-arrow-right me-2"></i> Logout
                                 </a></li>
                             </ul>
                         </li>
                     {% else %}
-                        <li class="nav-item">
+                        <li class="nav-item me-2">
                             <a class="nav-link" href="{{ url_for('login') }}">
-                                <i class="bi bi-box-arrow-in-right"></i> Login
+                                <i class="bi bi-box-arrow-in-right me-1"></i> Login
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary text-white ms-2" href="{{ url_for('register') }}">
-                                Sign Up
+                            <a class="btn btn-primary rounded-pill px-3" href="{{ url_for('register') }}">
+                                <i class="bi bi-person-plus me-1"></i> Join Journey
                             </a>
                         </li>
                     {% endif %}
@@ -108,11 +110,24 @@
     <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div class="container mt-3">
+            <div class="position-fixed top-0 end-0 p-3" style="z-index: 11; margin-top: 80px;">
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <div class="toast show align-items-center border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+                        <div class="d-flex">
+                            <div class="toast-body bg-{{ 'danger' if category == 'error' else category }} text-white rounded">
+                                {% if category == 'success' %}
+                                    <i class="bi bi-check-circle me-2"></i>
+                                {% elif category == 'error' or category == 'danger' %}
+                                    <i class="bi bi-exclamation-triangle me-2"></i>
+                                {% elif category == 'warning' %}
+                                    <i class="bi bi-exclamation-circle me-2"></i>
+                                {% else %}
+                                    <i class="bi bi-info-circle me-2"></i>
+                                {% endif %}
+                                {{ message }}
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -120,34 +135,157 @@
     {% endwith %}
 
     <!-- Main Content -->
-    {% block content %}{% endblock %}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>The Journey</h5>
-                    <p>Connecting communities through meaningful experiences.</p>
+    <footer class="footer mt-5 moroccan-pattern">
+        <div class="footer-content py-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="The Journey Logo" height="32" class="me-2">
+                            <h5 class="mb-0 text-gradient">Discover Morocco</h5>
+                        </div>
+                        <p class="mb-3">Embark on an authentic journey through Morocco's rich culture, connecting communities through meaningful experiences and traditional celebrations.</p>
+                        <div class="d-flex gap-3">
+                            <a href="#" class="text-decoration-none" aria-label="Facebook">
+                                <i class="bi bi-facebook fs-5"></i>
+                            </a>
+                            <a href="#" class="text-decoration-none" aria-label="Instagram">
+                                <i class="bi bi-instagram fs-5"></i>
+                            </a>
+                            <a href="#" class="text-decoration-none" aria-label="Twitter">
+                                <i class="bi bi-twitter fs-5"></i>
+                            </a>
+                            <a href="#" class="text-decoration-none" aria-label="YouTube">
+                                <i class="bi bi-youtube fs-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-2 col-md-6">
+                        <h6>Explore</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="{{ url_for('events') }}">Cultural Events</a></li>
+                            <li class="mb-2"><a href="{{ url_for('clubs') }}">Local Clubs</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Traditional Tours</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Artisan Workshops</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-lg-2 col-md-6">
+                        <h6>Destinations</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Marrakech</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Fes</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Casablanca</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Chefchaouen</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-lg-2 col-md-6">
+                        <h6>Support</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Help Center</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Contact Us</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Safety Guidelines</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Community Rules</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-lg-2 col-md-6">
+                        <h6>Experience</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Host an Event</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Join as Guide</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Partner with Us</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none">Press & Media</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <h6>Quick Links</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="{{ url_for('events') }}" class="text-light">Browse Events</a></li>
-                        <li><a href="{{ url_for('clubs') }}" class="text-light">Join Clubs</a></li>
-                        <li><a href="#" class="text-light">About Us</a></li>
-                        <li><a href="#" class="text-light">Contact</a></li>
-                    </ul>
+                
+                <hr class="my-4 opacity-25">
+                
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <p class="mb-0 small">&copy; {{ moment().format('YYYY') }} The Journey Association. Preserving and sharing Morocco's cultural heritage.</p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <div class="d-flex justify-content-md-end gap-3 small">
+                            <a href="#" class="text-decoration-none">Privacy Policy</a>
+                            <a href="#" class="text-decoration-none">Terms of Service</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <hr class="mt-4">
-            <div class="text-center">
-                <p>&copy; 2024 The Journey. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript for navbar scroll effect -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('mainNavbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Initialize tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        // Initialize toasts
+        const toastElList = [].slice.call(document.querySelectorAll('.toast'));
+        const toastList = toastElList.map(function (toastEl) {
+            return new bootstrap.Toast(toastEl);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.card, .hero-content, .section');
+            animateElements.forEach(el => observer.observe(el));
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
