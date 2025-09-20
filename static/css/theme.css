@@ -1,28 +1,41 @@
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+/* Import Google Fonts - Moroccan Journey */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap');
 
-/* Moroccan Travel Theme CSS Variables */
+/* Moroccan Journey - Heritage Color Palette */
 :root {
-  /* Moroccan Color Palette */
-  --primary: #255B98;          /* Majorelle Blue */
-  --secondary: #E9C46A;        /* Desert Sand */
-  --success: #2A9D8F;          /* Cedar Green */
-  --danger: #E76F51;           /* Terracotta */
-  --warning: #F4A261;          /* Sunset Orange */
-  --info: #264653;             /* Medina Night */
-  --light: #FAF7F2;            /* Off-white Plaster */
-  --dark: #1D3557;             /* Deep Night */
+  /* Primary Moroccan Heritage Colors */
+  --marrakech-red: #C1440E;    /* Terracotta, traditional buildings */
+  --sahara-gold: #D4A574;      /* Desert sands, golden hour */
+  --atlas-blue: #2E5BBA;       /* Traditional tiles, sky */
+  --mint-tea-green: #4A7C59;   /* Traditional mint, oases */
   
-  /* Custom Cultural Colors */
-  --moroccan-gold: #D4AF37;
-  --sahara-sand: #F7DC6F;
-  --atlas-mountain: #34495E;
-  --mediterranean: #3498DB;
-  --mint-tea: #58D68D;
+  /* Supporting Heritage Colors */
+  --ivory: #F7F3E9;            /* Limestone, traditional architecture */
+  --deep-indigo: #1B2951;      /* Night sky, traditional textiles */
+  --copper: #B87333;           /* Traditional metalwork */
+  --warm-white: #FEFCF6;       /* Pure backgrounds */
   
-  /* Typography */
-  --font-family-display: 'Playfair Display', Georgia, serif;
-  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Bootstrap Compatible Mapping */
+  --primary: var(--atlas-blue);
+  --secondary: var(--sahara-gold);
+  --success: var(--mint-tea-green);
+  --danger: var(--marrakech-red);
+  --warning: var(--copper);
+  --info: var(--deep-indigo);
+  --light: var(--ivory);
+  --dark: var(--deep-indigo);
+  
+  /* Extended Cultural Colors */
+  --moroccan-gold: var(--sahara-gold);
+  --traditional-red: var(--marrakech-red);
+  --medina-blue: var(--atlas-blue);
+  --oasis-green: var(--mint-tea-green);
+  --atlas-mountain: var(--deep-indigo);  /* Text color for consistency */
+  
+  /* Typography - Moroccan Journey */
+  --font-family-display: 'Playfair Display', Georgia, serif;  /* Elegant serifs for headings */
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;  /* Clean sans-serif for body */
+  --font-family-arabic: 'Amiri', 'Times New Roman', serif;     /* Arabic script support */
   
   /* Spacing Scale (8pt grid) */
   --spacing-xs: 0.25rem;   /* 4px */
@@ -51,46 +64,60 @@
   --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Override Bootstrap CSS Variables */
+/* Override Bootstrap CSS Variables - Moroccan Journey Theme */
 :root {
-  --bs-primary: var(--primary);
-  --bs-secondary: var(--secondary);
-  --bs-success: var(--success);
-  --bs-danger: var(--danger);
-  --bs-warning: var(--warning);
-  --bs-info: var(--info);
-  --bs-light: var(--light);
-  --bs-dark: var(--dark);
+  --bs-primary: var(--atlas-blue);
+  --bs-secondary: var(--sahara-gold);
+  --bs-success: var(--mint-tea-green);
+  --bs-danger: var(--marrakech-red);
+  --bs-warning: var(--copper);
+  --bs-info: var(--deep-indigo);
+  --bs-light: var(--ivory);
+  --bs-dark: var(--deep-indigo);
   
-  --bs-primary-rgb: 37, 91, 152;
-  --bs-secondary-rgb: 233, 196, 106;
-  --bs-success-rgb: 42, 157, 143;
-  --bs-danger-rgb: 231, 111, 81;
-  --bs-warning-rgb: 244, 162, 97;
-  --bs-info-rgb: 38, 70, 83;
-  --bs-light-rgb: 250, 247, 242;
-  --bs-dark-rgb: 29, 53, 87;
+  /* RGB Values for Moroccan Heritage Colors */
+  --bs-primary-rgb: 46, 91, 186;     /* Atlas Blue */
+  --bs-secondary-rgb: 212, 165, 116; /* Sahara Gold */
+  --bs-success-rgb: 74, 124, 89;     /* Mint Tea Green */
+  --bs-danger-rgb: 193, 68, 14;      /* Marrakech Red */
+  --bs-warning-rgb: 184, 115, 51;    /* Copper */
+  --bs-info-rgb: 27, 41, 81;         /* Deep Indigo */
+  --bs-light-rgb: 247, 243, 233;     /* Ivory */
+  --bs-dark-rgb: 27, 41, 81;         /* Deep Indigo */
   
   --bs-font-sans-serif: var(--font-family-base);
-  --bs-body-bg: var(--light);
-  --bs-body-color: var(--dark);
+  --bs-body-bg: var(--ivory);
+  --bs-body-color: var(--deep-indigo);
 }
 
-/* Base Typography */
+/* Moroccan Journey Typography */
 body {
   font-family: var(--font-family-base);
   font-weight: 400;
   line-height: 1.6;
-  color: var(--dark);
-  background-color: var(--light);
+  color: var(--deep-indigo);
+  background-color: var(--ivory);
 }
 
+/* Playfair Display for all headings and decorative text */
 h1, h2, h3, h4, h5, h6,
-.display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6,
+.hero-title, .brand-text, .decorative-text {
   font-family: var(--font-family-display);
   font-weight: 600;
   line-height: 1.2;
-  color: var(--dark);
+  color: var(--deep-indigo);
+  letter-spacing: 0.5px;
+}
+
+/* Special styling for Moroccan Journey branding */
+.brand-title {
+  font-family: var(--font-family-display);
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--sahara-gold);
+  text-shadow: 2px 2px 4px rgba(27, 41, 81, 0.3);
+  letter-spacing: 2px;
 }
 
 .lead {
@@ -168,7 +195,7 @@ h1, h2, h3, h4, h5, h6,
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
-  color: #E9C46A !important;
+  color: var(--sahara-gold) !important;
   transform: translateY(-2px);
 }
 
@@ -186,7 +213,7 @@ h1, h2, h3, h4, h5, h6,
   left: 50%;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #E9C46A, #F4A261);
+  background: linear-gradient(90deg, var(--sahara-gold), var(--copper));
   transition: all var(--transition-normal);
   transform: translateX(-50%);
 }
@@ -196,21 +223,21 @@ h1, h2, h3, h4, h5, h6,
   width: 80%;
 }
 
-/* Dropdown styling for logged in users */
+/* Dropdown styling - Moroccan Journey */
 .dropdown-menu {
-  background-color: #112250;
-  border: 1px solid rgba(233, 196, 106, 0.2);
-  box-shadow: 0 10px 30px rgba(17, 34, 80, 0.4);
+  background-color: var(--deep-indigo);
+  border: 1px solid rgba(212, 165, 116, 0.2);
+  box-shadow: 0 10px 30px rgba(27, 41, 81, 0.4);
 }
 
 .dropdown-item {
-  color: white;
+  color: var(--ivory);
   transition: all var(--transition-fast);
 }
 
 .dropdown-item:hover {
-  background-color: rgba(233, 196, 106, 0.1);
-  color: #E9C46A;
+  background-color: rgba(212, 165, 116, 0.1);
+  color: var(--sahara-gold);
 }
 
 /* Mobile navbar styling */
@@ -261,9 +288,9 @@ h1, h2, h3, h4, h5, h6,
   height: 100%;
   background: linear-gradient(
     45deg,
-    rgba(37, 91, 152, 0.8) 0%,
-    rgba(38, 70, 83, 0.7) 50%,
-    rgba(37, 91, 152, 0.8) 100%
+    rgba(46, 91, 186, 0.8) 0%,
+    rgba(27, 41, 81, 0.7) 50%,
+    rgba(46, 91, 186, 0.8) 100%
   );
   display: flex;
   align-items: center;
@@ -313,25 +340,51 @@ h1, h2, h3, h4, h5, h6,
   font-style: italic;
 }
 
+/* Primary Hero Button - Moroccan Journey */
 .btn-hero {
-  background: linear-gradient(45deg, var(--secondary), var(--moroccan-gold));
+  background: linear-gradient(45deg, var(--sahara-gold), var(--copper));
   border: none;
-  color: var(--dark);
+  color: var(--deep-indigo);
+  font-family: var(--font-family-display);
   font-weight: 600;
   font-size: 1.1rem;
   border-radius: 30px;
   padding: 1rem 3rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 8px 25px rgba(233, 196, 106, 0.3);
+  box-shadow: 0 8px 25px rgba(212, 165, 116, 0.4);
   transition: all var(--transition-normal);
   backdrop-filter: blur(10px);
 }
 
 .btn-hero:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(233, 196, 106, 0.4);
-  color: var(--dark);
+  box-shadow: 0 12px 35px rgba(212, 165, 116, 0.6);
+  color: var(--deep-indigo);
+  background: linear-gradient(45deg, var(--copper), var(--sahara-gold));
+}
+
+/* Secondary Hero Button - Cultural Experiences */
+.btn-hero-secondary {
+  background: transparent;
+  border: 2px solid var(--ivory);
+  color: var(--ivory);
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  padding: 1rem 3rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(10px);
+}
+
+.btn-hero-secondary:hover {
+  background: var(--ivory);
+  color: var(--deep-indigo);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(247, 243, 233, 0.3);
 }
 
 .hero-pattern {
@@ -355,9 +408,9 @@ h1, h2, h3, h4, h5, h6,
   .hero-overlay {
     background: linear-gradient(
       45deg,
-      rgba(37, 91, 152, 0.9) 0%,
-      rgba(38, 70, 83, 0.8) 50%,
-      rgba(37, 91, 152, 0.9) 100%
+      rgba(46, 91, 186, 0.9) 0%,
+      rgba(27, 41, 81, 0.8) 50%,
+      rgba(46, 91, 186, 0.9) 100%
     ), url('https://images.unsplash.com/photo-1539650116574-75c0c6d73f6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
     background-position: center;
@@ -497,21 +550,21 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .category-badge.sustainable {
-  background: rgba(42, 157, 143, 0.1);
-  color: var(--success);
-  border: 1px solid rgba(42, 157, 143, 0.2);
+  background: rgba(74, 124, 89, 0.1);
+  color: var(--mint-tea-green);
+  border: 1px solid rgba(74, 124, 89, 0.2);
 }
 
 .category-badge.cultural {
-  background: rgba(233, 196, 106, 0.1);
-  color: var(--secondary);
-  border: 1px solid rgba(233, 196, 106, 0.2);
+  background: rgba(212, 165, 116, 0.1);
+  color: var(--sahara-gold);
+  border: 1px solid rgba(212, 165, 116, 0.2);
 }
 
 .category-badge.entertainment {
-  background: rgba(231, 111, 81, 0.1);
-  color: var(--danger);
-  border: 1px solid rgba(231, 111, 81, 0.2);
+  background: rgba(193, 68, 14, 0.1);
+  color: var(--marrakech-red);
+  border: 1px solid rgba(193, 68, 14, 0.2);
 }
 
 /* Buttons */
@@ -564,7 +617,7 @@ h1, h2, h3, h4, h5, h6,
 
 /* Forms */
 .form-control {
-  border: 2px solid rgba(37, 91, 152, 0.1);
+  border: 2px solid rgba(46, 91, 186, 0.1);
   border-radius: var(--border-radius-md);
   padding: var(--spacing-sm) var(--spacing-md);
   transition: all var(--transition-fast);
@@ -572,8 +625,8 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .form-control:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 0.2rem rgba(37, 91, 152, 0.15);
+  border-color: var(--atlas-blue);
+  box-shadow: 0 0 0 0.2rem rgba(46, 91, 186, 0.15);
 }
 
 .form-label {
@@ -672,16 +725,16 @@ h1, h2, h3, h4, h5, h6,
   border: 0 !important;
 }
 
-/* Focus Styles */
+/* Focus Styles - Moroccan Journey */
 *:focus {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--atlas-blue);
   outline-offset: 2px;
 }
 
 .btn:focus,
 .form-control:focus {
   outline: none;
-  box-shadow: 0 0 0 0.2rem rgba(37, 91, 152, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(46, 91, 186, 0.25);
 }
 
 /* Utility Classes */
