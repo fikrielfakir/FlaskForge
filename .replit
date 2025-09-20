@@ -17,15 +17,15 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "The Journey Frontend"
+args = "Moroccan Journey Web App"
 
 [[workflows.workflow]]
-name = "The Journey Frontend"
+name = "Moroccan Journey Web App"
 author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd /home/runner/workspace && uv run python app.py"
+args = "uv run gunicorn --bind 0.0.0.0:5000 --reuse-port --reload app:app"
 waitForPort = 5000
 
 [workflows.workflow.metadata]
@@ -36,9 +36,9 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 40829
+localPort = 40831
 externalPort = 3000
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "app:app"]
+run = ["gunicorn", "--bind", "0.0.0.0:5000", "--reuse-port", "app:app"]
