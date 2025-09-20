@@ -107,7 +107,7 @@ h1, h2, h3, h4, h5, h6,
 
 /* Custom Navigation */
 .navbar-brand img {
-  height: 32px;
+  height: 120px;
   width: auto;
   transition: transform var(--transition-fast);
 }
@@ -170,6 +170,13 @@ h1, h2, h3, h4, h5, h6,
 .navbar-nav .nav-link.active {
   color: #E9C46A !important;
   transform: translateY(-2px);
+}
+
+/* Left navigation styling with borders */
+.navbar-nav.me-auto {
+  border-bottom: 2px solid #fff;
+  border-top: 2px solid #fff;
+  padding: 0.5rem 0;
 }
 
 .navbar-nav .nav-link::after {
