@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}{{ event.title }} - Authentic Moroccan Cultural Experience{% endblock %}
+{% block title %}{{ event.title }} - The Journey Association Cultural Experience{% endblock %}
 
-{% block og_title %}{{ event.title }} - Authentic Moroccan Cultural Experience{% endblock %}
+{% block og_title %}{{ event.title }} - The Journey Association Cultural Experience{% endblock %}
 {% block og_description %}{{ event.description[:200] }}{% endblock %}
 
 {% block content %}
@@ -23,7 +23,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center text-white">
                 <div class="mb-3">
-                    <span class="category-badge {{ event.category }} bg-white bg-opacity-20">
+                    <span class="category-badge {{ event.category }} bg-white bg-opacity-25">
                         {% if event.category == 'sustainable' %}
                             <i class="bi bi-leaf"></i> Traditional Crafts
                         {% elif event.category == 'cultural' %}
@@ -39,28 +39,28 @@
                 <!-- Key Details Row -->
                 <div class="row g-3 text-center mb-4">
                     <div class="col-md-3">
-                        <div class="bg-white bg-opacity-20 rounded p-3">
+                        <div class="bg-white bg-opacity-25 rounded p-3">
                             <i class="bi bi-calendar-event mb-2" style="font-size: 1.5rem;"></i>
                             <h6 class="mb-1">{{ event.date_time.strftime('%b %d') }}</h6>
                             <small>{{ event.date_time.strftime('%Y') }}</small>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="bg-white bg-opacity-20 rounded p-3">
+                        <div class="bg-white bg-opacity-25 rounded p-3">
                             <i class="bi bi-clock mb-2" style="font-size: 1.5rem;"></i>
                             <h6 class="mb-1">{{ event.date_time.strftime('%I:%M %p') }}</h6>
                             <small>Local Time</small>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="bg-white bg-opacity-20 rounded p-3">
+                        <div class="bg-white bg-opacity-25 rounded p-3">
                             <i class="bi bi-geo-alt mb-2" style="font-size: 1.5rem;"></i>
                             <h6 class="mb-1">{{ event.city }}</h6>
                             <small>Morocco</small>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="bg-white bg-opacity-20 rounded p-3">
+                        <div class="bg-white bg-opacity-25 rounded p-3">
                             <i class="bi bi-currency-dollar mb-2" style="font-size: 1.5rem;"></i>
                             <h6 class="mb-1">
                                 {% if event.price > 0 %}

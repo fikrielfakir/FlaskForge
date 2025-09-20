@@ -1,0 +1,151 @@
+# Complete UI/UX Design Prompt for The Journey Association
+
+## Brand Identity & Visual Language
+Create a sophisticated, culturally-rich website design for The Journey Association, a Moroccan cultural tourism organization. The design should embody:
+
+**Brand Personality**: Professional, culturally authentic, sustainable, community-focused, elegant
+**Visual Style**: Modern with traditional Moroccan influences, clean typography, warm earth tones
+**Target Audience**: Cultural enthusiasts, sustainable travelers, students, professionals aged 25-45
+
+## Color Palette & Design Tokens
+- **Primary Navy**: #1B2951 (HSL: 223, 54%, 22%) - Trust, stability, professionalism
+- **Accent Gold**: #FFB800 (HSL: 43, 100%, 50%) - Heritage, luxury, warmth
+- **Secondary Blue**: #4A90E2 (HSL: 217, 69%, 59%) - Innovation, clarity, sky
+- **Neutral Cream**: #F5F2E8 (HSL: 45, 33%, 90%) - Warmth, comfort, sand
+- **Supporting Grays**: From #F8F9FA to #1A1B23 for hierarchy
+
+## Typography System
+- **Primary Font**: Elegant serif (Playfair Display style) for headlines and emotional content
+- **Secondary Font**: Clean sans-serif (Inter style) for body text and UI elements
+- **Scale**: 
+  - Hero: 48-56px (3xl-4xl)
+  - Section Headers: 32-40px (2xl-3xl)
+  - Subheadings: 20-24px (lg-xl)
+  - Body: 16-18px (base-lg)
+  - Captions: 14px (sm)
+
+## Layout Architecture
+- **Container**: 1200px max-width with responsive padding
+- **Grid System**: CSS Grid and Flexbox for complex layouts
+- **Spacing Scale**: 4px base unit (0.25rem increments)
+- **Section Padding**: 80px (5rem) vertical, 24px (1.5rem) horizontal
+- **Component Spacing**: 64px (4rem) between major sections
+
+## Component Design System
+
+### Navigation Header (80px height)
+- Fixed position with backdrop blur
+- Transparent over hero, solid navy elsewhere
+- Logo left, centered navigation, language/login right
+- Smooth transitions and hover states
+- Mobile: Hamburger menu with slide-out overlay
+
+### Hero Section
+- Full viewport height with architectural photography
+- Dark gradient overlay (40-60% opacity)
+- Center-aligned content with generous whitespace
+- Primary CTA button: 180px × 48px, rounded corners
+- Scroll indication arrow
+
+### Card Components
+- Rounded corners: 12px border radius
+- Subtle shadows: 0 4px 12px rgba(0,0,0,0.1)
+- Hover effects: translateY(-4px) with shadow increase
+- Internal padding: 32px (2rem)
+- Content hierarchy with clear visual separation
+
+### Focus Area Cards (3-column grid)
+- Card dimensions: 360px × 320px
+- Icon containers: 80px circular with gradient backgrounds
+- Full-width CTAs at bottom
+- Hover animations with scale and glow effects
+
+### Event Components
+- Calendar widget: Clean, minimal design
+- Event cards: Thumbnail + content layout
+- Date formatting: Consistent typography
+- Action buttons: Paired (Book Now + Share)
+- Status indicators: Color-coded badges
+
+### Statistics Display
+- 4-column equal-width layout
+- Large numbers: 48px bold typography
+- Icon integration: 64px with brand colors
+- Subtle background differentiation
+- Responsive stacking on mobile
+
+### Team Member Profiles
+- Circular images: 160px diameter
+- Social media integration
+- Hover effects: Scale 1.05 with shadow
+- Carousel navigation: Arrow controls
+- Professional presentation
+
+### Form Design
+- Input height: 48px with 16px padding
+- Border: 1px solid with focus states
+- Validation: Inline feedback
+- Submit button: Prominent, accessible
+- Responsive single-column layout
+
+## Interaction & Animation Guidelines
+- **Timing**: 0.3s ease-in-out for most transitions
+- **Hover States**: Subtle scale (1.02-1.05) and color shifts
+- **Loading**: Skeleton screens, not spinners
+- **Scroll**: Parallax effects on hero, fade-in animations
+- **Focus**: Clear keyboard navigation indicators
+
+### Micro-interactions
+- Button press feedback
+- Form field focus animations
+- Card hover elevations
+- Navigation active states
+- Image loading progressions
+
+## Responsive Design Strategy
+- **Desktop First**: 1200px+ optimal experience
+- **Tablet**: 768-1199px with adapted layouts
+- **Mobile**: 320-767px with stacked components
+- **Touch Targets**: Minimum 44px for mobile
+- **Typography**: Fluid scaling between breakpoints
+
+## Accessibility Requirements
+- **Color Contrast**: WCAG AA compliance (4.5:1 minimum)
+- **Keyboard Navigation**: Full functionality without mouse
+- **Screen Readers**: Semantic HTML and ARIA labels
+- **Font Scaling**: Support up to 200% zoom
+- **Focus Management**: Logical tab order
+
+## Cultural Sensitivity
+- **Moroccan Elements**: Architectural motifs, geometric patterns
+- **Color Psychology**: Respect for cultural color meanings
+- **Imagery**: Authentic photography, avoid stereotypes
+- **Language Support**: RTL layout preparation for Arabic
+- **Local Context**: Sustainable tourism messaging
+
+## Technical Implementation
+- **Framework**: React with TypeScript
+- **Styling**: Tailwind CSS with custom design tokens
+- **Components**: Modular, reusable component library
+- **Icons**: Lucide React for consistency
+- **Images**: Optimized with lazy loading
+- **Performance**: Core Web Vitals optimization
+
+## Content Strategy Integration
+- **Photography**: High-quality, authentic cultural imagery
+- **Copy Tone**: Professional yet warm, inspiring
+- **CTAs**: Action-oriented, clear value propositions
+- **Social Proof**: Testimonials, statistics, partnerships
+- **SEO**: Semantic HTML, meta descriptions, structured data
+
+## Quality Assurance Checklist
+- [ ] Brand consistency across all components
+- [ ] Responsive behavior on all devices
+- [ ] Accessibility compliance testing
+- [ ] Performance optimization validation
+- [ ] Cross-browser compatibility
+- [ ] Loading state implementations
+- [ ] Error state handling
+- [ ] Form validation feedback
+
+This design system creates a cohesive, culturally-respectful, and highly functional website that reflects The Journey Association's mission while providing an exceptional user experience across all touchpoints.

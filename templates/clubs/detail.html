@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}{{ club.name }} - Moroccan Cultural Community{% endblock %}
+{% block title %}{{ club.name }} - The Journey Association Community{% endblock %}
 
-{% block og_title %}{{ club.name }} - Moroccan Cultural Community{% endblock %}
+{% block og_title %}{{ club.name }} - The Journey Association Community{% endblock %}
 {% block og_description %}{{ club.description[:200] }}{% endblock %}
 
 {% block content %}
@@ -23,7 +23,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center text-white">
                 <div class="mb-3">
-                    <span class="category-badge {{ club.category }} bg-white bg-opacity-20">
+                    <span class="category-badge {{ club.category }} bg-white bg-opacity-25">
                         {% if club.category == 'sustainable' %}
                             <i class="bi bi-leaf"></i> Traditional Crafts Community
                         {% elif club.category == 'cultural' %}
@@ -39,21 +39,21 @@
                 <!-- Key Info Row -->
                 <div class="row g-3 text-center mb-4">
                     <div class="col-md-4">
-                        <div class="bg-white bg-opacity-20 rounded p-3">
+                        <div class="bg-white bg-opacity-25 rounded p-3">
                             <i class="bi bi-geo-alt mb-2" style="font-size: 1.5rem;"></i>
                             <h6 class="mb-1">{{ club.city }}</h6>
                             <small>Morocco</small>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="bg-white bg-opacity-20 rounded p-3">
+                        <div class="bg-white bg-opacity-25 rounded p-3">
                             <i class="bi bi-calendar mb-2" style="font-size: 1.5rem;"></i>
                             <h6 class="mb-1">{{ club.created_at.strftime('%B') }}</h6>
                             <small>{{ club.created_at.strftime('%Y') }}</small>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="bg-white bg-opacity-20 rounded p-3">
+                        <div class="bg-white bg-opacity-25 rounded p-3">
                             <i class="bi bi-people mb-2" style="font-size: 1.5rem;"></i>
                             <h6 class="mb-1">Active</h6>
                             <small>Community</small>

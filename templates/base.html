@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Moroccan Journey - Premium Cultural Experiences & Heritage Adventures{% endblock %}</title>
+    <title>{% block title %}The Journey Association - Premium Cultural Experiences & Heritage Adventures{% endblock %}</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
@@ -17,18 +17,18 @@
     
     <!-- Meta tags for SEO -->
     <meta name="description" content="Experience authentic Morocco through premium cultural adventures, traditional workshops, and heritage experiences. Your gateway to Morocco's rich traditions and modern luxury.">
-    <meta name="keywords" content="Morocco, cultural tourism, authentic experiences, heritage adventures, traditional crafts, Moroccan culture, premium travel">
-    <meta name="author" content="Moroccan Journey">
+    <meta name="keywords" content="Morocco, cultural tourism, authentic experiences, heritage adventures, traditional crafts, cultural preservation, premium travel, journey association">
+    <meta name="author" content="The Journey Association">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="{% block og_title %}Moroccan Journey - Premium Cultural Experiences & Heritage Adventures{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}The Journey Association - Premium Cultural Experiences & Heritage Adventures{% endblock %}">
     <meta property="og:description" content="{% block og_description %}Experience authentic Morocco through premium cultural adventures, traditional workshops, and heritage experiences.{% endblock %}">
     <meta property="og:image" content="{{ url_for('static', filename='img/logo.png', _external=True) }}">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="{% block twitter_title %}Moroccan Journey - Premium Cultural Experiences & Heritage Adventures{% endblock %}">
+    <meta property="twitter:title" content="{% block twitter_title %}The Journey Association - Premium Cultural Experiences & Heritage Adventures{% endblock %}">
     <meta property="twitter:description" content="{% block twitter_description %}Experience authentic Morocco through premium cultural adventures, traditional workshops, and heritage experiences.{% endblock %}">
     <meta property="twitter:image" content="{{ url_for('static', filename='img/logo.png', _external=True) }}">
 </head>
@@ -38,8 +38,8 @@
         <div class="container">
             <!-- Brand -->
             <a class="navbar-brand d-flex align-items-center" href="{{ url_for('index') }}">
-                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Moroccan Journey" height="40" class="me-2">
-                <span class="fw-bold text-dark">Moroccan Journey</span>
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="The Journey Association" height="40" class="me-2">
+                <span class="fw-bold text-dark">The Journey Association</span>
             </a>
             
             <!-- Mobile Toggle -->
@@ -51,12 +51,12 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto ms-lg-4">
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-medium {% if request.endpoint == 'events' %}active{% endif %}" href="{{ url_for('events') }}">
+                        <a class="nav-link text-dark fw-semibold {% if request.endpoint == 'events' %}active{% endif %}" href="{{ url_for('events') }}">
                             <i class="bi bi-calendar-event me-1"></i>Experiences
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-medium {% if request.endpoint == 'clubs' %}active{% endif %}" href="{{ url_for('clubs') }}">
+                        <a class="nav-link text-dark fw-semibold {% if request.endpoint == 'clubs' %}active{% endif %}" href="{{ url_for('clubs') }}">
                             <i class="bi bi-people me-1"></i>Communities
                         </a>
                     </li>
@@ -142,8 +142,8 @@
             <div class="row g-4">
                 <div class="col-lg-4">
                     <div class="d-flex align-items-center mb-3">
-                        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Moroccan Journey" height="40" class="me-2">
-                        <h5 class="mb-0 text-white">Moroccan Journey</h5>
+                        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="The Journey Association" height="40" class="me-2">
+                        <h5 class="mb-0 text-white">The Journey Association</h5>
                     </div>
                     <p class="text-light opacity-75 mb-4">Discover authentic Morocco through premium cultural experiences and connect with local communities.</p>
                     <div class="d-flex gap-3">
@@ -203,7 +203,7 @@
             
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <p class="mb-0 small opacity-75">&copy; 2024 Moroccan Journey. All rights reserved.</p>
+                    <p class="mb-0 small opacity-75">&copy; 2024 The Journey Association. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="mb-0 small opacity-75">Made with ❤️ for cultural exploration</p>
@@ -217,7 +217,7 @@
     
     <!-- Custom JavaScript for navbar scroll effect -->
     <script>
-        // Moroccan Journey Navbar Glassmorphism Scroll Effect
+        // The Journey Association Navbar Scroll Effect
         function handleNavbarScroll() {
             const navbar = document.getElementById('mainNavbar');
             if (window.scrollY > 50) {
