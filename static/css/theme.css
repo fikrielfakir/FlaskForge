@@ -143,6 +143,7 @@ h1, h2, h3, h4, h5, h6,
   transform: scale(1.05);
 }
 
+/* Moroccan Journey Navigation - Glassmorphism */
 .navbar {
   background-color: transparent !important;
   backdrop-filter: none;
@@ -152,9 +153,13 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .navbar.scrolled {
-  background-color: #112250 !important;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 20px rgba(17, 34, 80, 0.3);
+  background: linear-gradient(135deg, 
+    rgba(27, 41, 81, 0.9), 
+    rgba(46, 91, 186, 0.8)
+  ) !important;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 32px rgba(27, 41, 81, 0.4);
+  border-bottom: 1px solid rgba(212, 165, 116, 0.2);
   padding: 0.75rem 0;
 }
 
@@ -250,7 +255,7 @@ h1, h2, h3, h4, h5, h6,
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* Hero Video Section */
+/* Moroccan Journey Hero - Immersive Experience */
 .hero-video-container {
   position: relative;
   height: 100vh;
@@ -258,6 +263,26 @@ h1, h2, h3, h4, h5, h6,
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Scroll Indicator with Moroccan Motif */
+.hero-video-container::after {
+  content: '↓';
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--sahara-gold);
+  font-size: 2rem;
+  animation: bounce 2s infinite;
+  z-index: 10;
+  text-shadow: 0 0 10px rgba(212, 165, 116, 0.5);
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+  40% { transform: translateX(-50%) translateY(-10px); }
+  60% { transform: translateX(-50%) translateY(-5px); }
 }
 
 .video-background {

@@ -228,7 +228,7 @@ def register():
         db.session.commit()
         
         login_user(user)
-        flash('Registration successful! Welcome to The Journey!', 'success')
+        flash('Registration successful! Welcome to Moroccan Journey!', 'success')
         return redirect(url_for('dashboard'))
     
     return render_template('auth/register.html', form=form)

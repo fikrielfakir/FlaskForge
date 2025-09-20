@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Discover Morocco - Cultural Events & Travel Experiences{% endblock %}</title>
+    <title>{% block title %}Moroccan Journey - Premium Cultural Experiences & Heritage Adventures{% endblock %}</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
@@ -16,20 +16,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
     
     <!-- Meta tags for SEO -->
-    <meta name="description" content="Discover authentic Moroccan culture through exclusive events, traditional experiences, and community gatherings. Join our journey through Morocco's rich heritage.">
-    <meta name="keywords" content="Morocco, culture, events, travel, tourism, traditional, experiences, community">
-    <meta name="author" content="The Journey">
+    <meta name="description" content="Experience authentic Morocco through premium cultural adventures, traditional workshops, and heritage experiences. Your gateway to Morocco's rich traditions and modern luxury.">
+    <meta name="keywords" content="Morocco, cultural tourism, authentic experiences, heritage adventures, traditional crafts, Moroccan culture, premium travel">
+    <meta name="author" content="Moroccan Journey">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="{% block og_title %}Discover Morocco - Cultural Events & Travel Experiences{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Discover authentic Moroccan culture through exclusive events, traditional experiences, and community gatherings.{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Moroccan Journey - Premium Cultural Experiences & Heritage Adventures{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Experience authentic Morocco through premium cultural adventures, traditional workshops, and heritage experiences.{% endblock %}">
     <meta property="og:image" content="{{ url_for('static', filename='img/logo.png', _external=True) }}">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="{% block twitter_title %}Discover Morocco - Cultural Events & Travel Experiences{% endblock %}">
-    <meta property="twitter:description" content="{% block twitter_description %}Discover authentic Moroccan culture through exclusive events, traditional experiences, and community gatherings.{% endblock %}">
+    <meta property="twitter:title" content="{% block twitter_title %}Moroccan Journey - Premium Cultural Experiences & Heritage Adventures{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Experience authentic Morocco through premium cultural adventures, traditional workshops, and heritage experiences.{% endblock %}">
     <meta property="twitter:image" content="{{ url_for('static', filename='img/logo.png', _external=True) }}">
 </head>
 <body>
@@ -44,7 +44,7 @@
             <!-- Center Brand - Always Visible -->
             <div class="navbar-brand mx-auto">
                 <a href="{{ url_for('index') }}" class="text-decoration-none">
-                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="The Journey Logo" height="32">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Moroccan Journey Logo" height="32">
                 </a>
             </div>
             
@@ -133,10 +133,10 @@
                 <div class="row g-4">
                     <div class="col-lg-4 col-md-6">
                         <div class="d-flex align-items-center mb-3">
-                            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="The Journey Logo" height="32" class="me-2">
-                            <h5 class="mb-0 text-gradient">Discover Morocco</h5>
+                            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Moroccan Journey Logo" height="32" class="me-2">
+                            <h5 class="mb-0 text-gradient">Moroccan Journey</h5>
                         </div>
-                        <p class="mb-3">Embark on an authentic journey through Morocco's rich culture, connecting communities through meaningful experiences and traditional celebrations.</p>
+                        <p class="mb-3">Experience authentic Morocco through premium cultural adventures, traditional workshops, and heritage experiences that connect you with centuries-old traditions.</p>
                         <div class="d-flex gap-3">
                             <a href="#" class="text-decoration-none" aria-label="Facebook">
                                 <i class="bi bi-facebook fs-5"></i>
@@ -198,7 +198,7 @@
                 
                 <div class="row align-items-center">
                     <div class="col-md-8">
-                        <p class="mb-0 small">&copy; 2024 The Journey Association. Preserving and sharing Morocco's cultural heritage.</p>
+                        <p class="mb-0 small">&copy; 2024 Moroccan Journey. Where Ancient Traditions Meet Modern Adventures.</p>
                     </div>
                     <div class="col-md-4 text-md-end">
                         <div class="d-flex justify-content-md-end gap-3 small">
@@ -216,15 +216,27 @@
     
     <!-- Custom JavaScript for navbar scroll effect -->
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
+        // Moroccan Journey Navbar Glassmorphism Scroll Effect
+        function handleNavbarScroll() {
             const navbar = document.getElementById('mainNavbar');
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
+        }
+        
+        // Throttled scroll listener for performance
+        let scrollTimer = null;
+        window.addEventListener('scroll', function() {
+            if (scrollTimer !== null) {
+                clearTimeout(scrollTimer);
+            }
+            scrollTimer = setTimeout(handleNavbarScroll, 10);
         });
+        
+        // Check scroll position on load
+        document.addEventListener('DOMContentLoaded', handleNavbarScroll);
 
         // Initialize tooltips
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));

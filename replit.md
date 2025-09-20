@@ -1,6 +1,6 @@
 # Overview
 
-The Journey is a comprehensive community-driven event management platform built with Flask that connects people through meaningful experiences. The platform serves as a bridge between event organizers, community clubs, and participants, focusing on sustainable living, cultural experiences, and entertainment networking. It features role-based access control, payment processing through Stripe, and a complete event lifecycle management system from creation to registration and attendance tracking.
+Moroccan Journey is a premium cultural tourism platform built with Flask that connects travelers with authentic Moroccan experiences. The platform serves as a bridge between cultural enthusiasts, heritage experiences, and traditional Moroccan communities, focusing on premium cultural adventures, traditional workshops, and heritage tourism. It features role-based access control, payment processing through Stripe, and a complete cultural experience lifecycle management system from discovery to booking and participation.
 
 # User Preferences
 
