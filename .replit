@@ -17,10 +17,10 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Flask Web App"
+args = "Moroccan Journey App"
 
 [[workflows.workflow]]
-name = "Flask Web App"
+name = "Moroccan Journey App"
 author = "agent"
 
 [[workflows.workflow.tasks]]
@@ -36,8 +36,8 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 39457
-externalPort = 3000
+localPort = 44961
+externalPort = 3001
 
 [deployment]
 deploymentTarget = "autoscale"
