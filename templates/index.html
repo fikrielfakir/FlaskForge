@@ -81,41 +81,111 @@
 </section>
 
 <!-- Events Calendar Section -->
-<section class="py-5" id="events">
+<section class="py-5 bg-white" id="events">
     <div class="container">
-        <div class="row align-items-center mb-5">
-            <div class="col-lg-8">
-                <h2 class="display-5 fw-bold mb-3">Events Calendar</h2>
-                <p class="lead text-muted">Upcoming cultural experiences and community gatherings</p>
-            </div>
-            <div class="col-lg-4 text-lg-end">
-                <a href="{{ url_for('events') }}" class="btn btn-primary">View All Events</a>
-            </div>
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Events Calendar</h2>
+            <p class="lead text-muted">Upcoming cultural experiences and community gatherings</p>
         </div>
         
-        <div class="row g-4">
-            {% for event in events[:3] %}
-            <div class="col-lg-4 col-md-6">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-header bg-white border-0 pb-0">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <span class="badge bg-primary">{{ event.date_time.strftime('%b %d') }}</span>
-                            <span class="text-muted small">{{ event.city }}</span>
-                        </div>
+        <div class="row g-5">
+            <!-- Calendar Widget -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-primary text-white text-center py-3">
+                        <h5 class="mb-0 fw-bold">September 2025</h5>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ event.title }}</h5>
-                        <p class="card-text text-muted small">{{ event.description[:80] }}...</p>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <span class="fw-semibold text-primary">
-                                {% if event.price > 0 %}${{ "%.0f"|format(event.price) }}{% else %}Free{% endif %}
-                            </span>
-                            <a href="{{ url_for('event_detail', event_id=event.id) }}" class="btn btn-outline-primary btn-sm">Learn More</a>
+                    <div class="card-body p-4">
+                        <div class="calendar-grid">
+                            <div class="row text-center small fw-bold text-muted mb-2">
+                                <div class="col">S</div>
+                                <div class="col">M</div>
+                                <div class="col">T</div>
+                                <div class="col">W</div>
+                                <div class="col">T</div>
+                                <div class="col">F</div>
+                                <div class="col">S</div>
+                            </div>
+                            <div class="row text-center small mb-1">
+                                <div class="col py-2">1</div>
+                                <div class="col py-2">2</div>
+                                <div class="col py-2">3</div>
+                                <div class="col py-2">4</div>
+                                <div class="col py-2">5</div>
+                                <div class="col py-2">6</div>
+                                <div class="col py-2">7</div>
+                            </div>
+                            <div class="row text-center small mb-1">
+                                <div class="col py-2">8</div>
+                                <div class="col py-2">9</div>
+                                <div class="col py-2">10</div>
+                                <div class="col py-2">11</div>
+                                <div class="col py-2">12</div>
+                                <div class="col py-2">13</div>
+                                <div class="col py-2">14</div>
+                            </div>
+                            <div class="row text-center small mb-1">
+                                <div class="col py-2">15</div>
+                                <div class="col py-2">16</div>
+                                <div class="col py-2">17</div>
+                                <div class="col py-2">18</div>
+                                <div class="col py-2">19</div>
+                                <div class="col py-2">20</div>
+                                <div class="col py-2">21</div>
+                            </div>
+                            <div class="row text-center small mb-1">
+                                <div class="col py-2">22</div>
+                                <div class="col py-2 bg-primary text-white rounded">23</div>
+                                <div class="col py-2">24</div>
+                                <div class="col py-2 bg-warning text-dark rounded">25</div>
+                                <div class="col py-2">26</div>
+                                <div class="col py-2">27</div>
+                                <div class="col py-2">28</div>
+                            </div>
+                            <div class="row text-center small">
+                                <div class="col py-2">29</div>
+                                <div class="col py-2">30</div>
+                                <div class="col py-2 text-muted">1</div>
+                                <div class="col py-2 text-muted">2</div>
+                                <div class="col py-2 text-muted">3</div>
+                                <div class="col py-2 text-muted">4</div>
+                                <div class="col py-2 text-muted">5</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+            
+            <!-- Event Listings -->
+            <div class="col-lg-8">
+                    {% for event in events[:4] %}
+                    <div class="card border-0 shadow-sm mb-3">
+                        <div class="card-body p-4">
+                            <div class="row align-items-center">
+                                <div class="col-lg-8">
+                                    <h5 class="card-title mb-2">{{ event.title }}</h5>
+                                    <p class="text-muted mb-2">{{ event.description[:100] }}...</p>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <span class="badge bg-light text-dark"><i class="bi bi-calendar me-1"></i>{{ event.date_time.strftime('%b %d, %Y') }}</span>
+                                        <span class="badge bg-light text-dark"><i class="bi bi-geo-alt me-1"></i>{{ event.city }}</span>
+                                        <span class="badge bg-light text-dark">
+                                            {% if event.price > 0 %}${{ "%.0f"|format(event.price) }}{% else %}Free{% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 text-lg-end">
+                                    <a href="{{ url_for('event_detail', event_id=event.id) }}" class="btn btn-primary">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    <div class="text-center mt-4">
+                        <a href="{{ url_for('events') }}" class="btn btn-outline-primary btn-lg">View All Events</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -160,31 +230,48 @@
 <!-- Our Clubs Section -->
 <section class="py-5 bg-light" id="clubs">
     <div class="container">
-        <div class="row align-items-center mb-5">
-            <div class="col-lg-8">
-                <h2 class="display-5 fw-bold mb-3">Our Clubs</h2>
-                <p class="lead text-muted">Join passionate communities preserving Moroccan culture</p>
-            </div>
-            <div class="col-lg-4 text-lg-end">
-                <a href="{{ url_for('clubs') }}" class="btn btn-primary">View All Clubs</a>
-            </div>
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Our Clubs</h2>
+            <p class="lead text-muted">Join passionate communities preserving Moroccan culture</p>
         </div>
         
         <div class="row g-4">
-            {% for club in clubs[:4] %}
-            <div class="col-lg-3 col-md-6">
-                <div class="card border-0 shadow-sm h-100" style="cursor: pointer;" onclick="window.location.href='{{ url_for('club_detail', club_id=club.id) }}';">
-                    <div class="card-body text-center p-4">
-                        <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                            <i class="bi bi-people fs-4 text-success"></i>
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #10B981, #059669); cursor: pointer;" onclick="window.location.href='{{ url_for('clubs') }}';">
+                    <div class="card-body p-5 text-white">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h3 class="fw-bold mb-0">Cultural Communities</h3>
+                            <i class="bi bi-people fs-1 opacity-75"></i>
                         </div>
-                        <h5 class="card-title">{{ club.name }}</h5>
-                        <p class="card-text text-muted small">{{ club.city }}</p>
-                        <span class="btn btn-outline-success btn-sm">Join Now</span>
+                        <p class="mb-4 opacity-90">Connect with like-minded individuals who share your passion for Moroccan culture, arts, and traditions.</p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <div class="fw-bold fs-4">{{ stats.total_clubs }}</div>
+                                <small class="opacity-75">Active Communities</small>
+                            </div>
+                            <a href="{{ url_for('clubs') }}" class="btn btn-light btn-sm">Explore</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #1E3A8A, #1D4ED8); cursor: pointer;" onclick="window.location.href='{{ url_for('events') }}';">
+                    <div class="card-body p-5 text-white">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h3 class="fw-bold mb-0">Cultural Experiences</h3>
+                            <i class="bi bi-calendar-event fs-1 opacity-75"></i>
+                        </div>
+                        <p class="mb-4 opacity-90">Participate in authentic workshops, traditional ceremonies, and heritage preservation activities.</p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <div class="fw-bold fs-4">{{ stats.total_events }}</div>
+                                <small class="opacity-75">Cultural Events</small>
+                            </div>
+                            <a href="{{ url_for('events') }}" class="btn btn-light btn-sm">Join</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -288,13 +375,21 @@
 <!-- Let's Get in Touch! Section -->
 <section class="py-5 bg-light" id="contact">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="text-center mb-5">
-                    <h2 class="display-5 fw-bold mb-3">Let's Get in Touch!</h2>
-                    <p class="lead text-muted">Have questions? We'd love to hear from you</p>
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Let's Get in Touch!</h2>
+            <p class="lead text-muted">Have questions? We'd love to hear from you</p>
+        </div>
+        
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-4 text-center mb-4 mb-lg-0">
+                <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 150px; height: 150px;">
+                    <i class="bi bi-envelope fs-1 text-white"></i>
                 </div>
-                
+                <h4 class="fw-bold mb-2">Get in Touch</h4>
+                <p class="text-muted">We're here to help and answer any questions you might have.</p>
+            </div>
+            
+            <div class="col-lg-8">
                 <div class="card border-0 shadow">
                     <div class="card-body p-5">
                         <form method="POST" action="{{ url_for('contact') }}">
@@ -327,8 +422,8 @@
                                         </div>
                                     {% endif %}
                                 </div>
-                                <div class="col-12 text-center">
-                                    <button type="submit" class="btn btn-primary btn-lg px-5 py-3">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5 py-3 w-100">
                                         Send Message <i class="bi bi-arrow-right ms-2"></i>
                                     </button>
                                 </div>
