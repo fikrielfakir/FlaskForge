@@ -154,6 +154,13 @@ class ClubMembership(db.Model):
     # Ensure one membership per user per club
     __table_args__ = (db.UniqueConstraint('user_id', 'club_id', name='unique_user_club'),)
 
+class ContactMessage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
 # Forms
 class LoginForm(FlaskForm):
     email = EmailField('Email', validators=[DataRequired(), Email()])
@@ -197,13 +204,86 @@ class EventRegistrationForm(FlaskForm):
 class ClubJoinForm(FlaskForm):
     pass  # Only needs CSRF token
 
+class ContactForm(FlaskForm):
+    name = StringField('Full Name', validators=[DataRequired(), Length(min=2, max=100)])
+    email = EmailField('Email Address', validators=[DataRequired(), Email()])
+    message = TextAreaField('Message', validators=[DataRequired(), Length(min=10, max=1000)])
+
 # Routes
 @app.route('/')
 def index():
-    # Get recent events for homepage
+    # Get data for all sections of the landing page
     recent_events = Event.query.filter(Event.date_time > datetime.now()).order_by(Event.date_time.asc()).limit(6).all()
-    featured_clubs = Club.query.order_by(Club.created_at.desc()).limit(3).all()
-    return render_template('index.html', events=recent_events, clubs=featured_clubs)
+    featured_clubs = Club.query.order_by(Club.created_at.desc()).limit(6).all()
+    
+    # Calculate statistics for the footprint section
+    stats = {
+        'total_events': Event.query.count(),
+        'total_clubs': Club.query.count(),
+        'total_cities': db.session.query(Event.city).distinct().count(),
+        'total_members': User.query.count()
+    }
+    
+    # Team members data
+    team_members = [
+        {
+            'name': 'Sarah Chen',
+            'role': 'Founder & Cultural Director',
+            'image': 'team-sarah.jpg',
+            'bio': 'Cultural heritage preservation expert with 15 years of experience in Morocco'
+        },
+        {
+            'name': 'Ahmed Ben Ali',
+            'role': 'Community Manager',
+            'image': 'team-ahmed.jpg',
+            'bio': 'Local community liaison and traditional crafts specialist'
+        },
+        {
+            'name': 'Emily Rodriguez',
+            'role': 'Experience Curator',
+            'image': 'team-emily.jpg',
+            'bio': 'Travel experience designer focused on authentic cultural immersion'
+        },
+        {
+            'name': 'Omar Fassi',
+            'role': 'Heritage Guide',
+            'image': 'team-omar.jpg',
+            'bio': 'Certified cultural guide and storyteller from Fes medina'
+        }
+    ]
+    
+    # Testimonials data
+    testimonials = [
+        {
+            'name': 'Amira Hassan',
+            'role': 'Cultural Arts Enthusiast',
+            'content': 'Learning traditional pottery from a master craftsman in Fes was transformative. The connection to centuries-old traditions gave me a profound appreciation for Moroccan artistry.',
+            'rating': 5
+        },
+        {
+            'name': 'Carlos Rodriguez',
+            'role': 'Culinary Explorer',
+            'content': 'The traditional cooking class opened my eyes to the rich history behind every spice and technique. Now I can recreate authentic Moroccan flavors at home.',
+            'rating': 5
+        },
+        {
+            'name': 'Fatima Al-Zahra',
+            'role': 'Heritage Preservationist',
+            'content': 'Joining the community has connected me with like-minded individuals who share my passion for preserving Morocco\'s cultural legacy for future generations.',
+            'rating': 5
+        }
+    ]
+    
+    # Contact form
+    contact_form = ContactForm()
+    
+    return render_template('index.html', 
+                         events=recent_events, 
+                         clubs=featured_clubs,
+                         stats=stats,
+                         team_members=team_members,
+                         testimonials=testimonials,
+                         contact_form=contact_form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -468,9 +548,33 @@ def join_club(club_id):
     
     return redirect(url_for('club_detail', club_id=club_id))
 
+@app.route('/contact', methods=['POST'])
+def contact():
+    form = ContactForm()
+    if form.validate_on_submit():
+        try:
+            # Create new contact message
+            contact_message = ContactMessage()
+            contact_message.name = form.name.data
+            contact_message.email = form.email.data
+            contact_message.message = form.message.data
+            db.session.add(contact_message)
+            db.session.commit()
+            
+            flash('Thank you for your message! We\'ll get back to you soon.', 'success')
+        except Exception as e:
+            db.session.rollback()
+            flash('An error occurred while sending your message. Please try again.', 'error')
+    else:
+        flash('Please fill out all fields correctly.', 'error')
+    
+    return redirect(url_for('index') + '#contact')
+
+# Ensure database tables are created (works with both direct run and Gunicorn)
+with app.app_context():
+    db.create_all()
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     # Configure debug mode from environment
     app.config['DEBUG'] = os.environ.get('FLASK_DEBUG', '').lower() in ('true', '1', 'yes')
     app.run(host='0.0.0.0', port=5000, debug=app.config['DEBUG'])
