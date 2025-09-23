@@ -4,22 +4,22 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero-section bg-dark text-white position-relative overflow-hidden d-flex align-items-center justify-content-center" style="min-height: 100vh; background-image: url('https://images.unsplash.com/photo-1539650116574-75c0c6d73f6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;">
-    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0, 0, 0, 0.6);"></div>
+<section class="hero-section bg-dark text-white position-relative overflow-hidden d-flex align-items-center justify-content-center" style="min-height: 100vh; background-image: url('https://images.unsplash.com/photo-1571043733612-2b27a66e6c20?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;">
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));"></div>
     <div class="container position-relative text-center" style="z-index: 2;">
         <div class="hero-content py-5">
-            <h1 class="display-1 fw-bold mb-4 text-white" style="font-size: 5rem; letter-spacing: 0.2em; font-family: 'Playfair Display', serif;">
+            <h1 class="display-1 fw-bold mb-4 text-white" style="font-size: 6rem; letter-spacing: 0.3em; font-family: 'Playfair Display', serif; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
                 THE JOURNEY
             </h1>
-            <p class="lead fs-4 mb-5 opacity-90 text-white" style="max-width: 700px; margin: 0 auto; font-weight: 300;">
-                Discover authentic Moroccan experiences through cultural heritage, traditional crafts, and community connections
+            <p class="lead fs-3 mb-5 opacity-90 text-white" style="max-width: 800px; margin: 0 auto; font-weight: 300; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+                Experience the authentic soul of Morocco through cultural immersion, traditional crafts, and meaningful community connections
             </p>
-            <div class="d-flex justify-content-center gap-4 flex-wrap">
-                <a href="#events" class="btn btn-warning btn-lg px-5 py-3 fw-semibold">
-                    Explore Experiences
+            <div class="d-flex justify-content-center gap-4 flex-wrap mt-5">
+                <a href="#events" class="btn btn-warning btn-lg px-5 py-4 fw-semibold rounded-pill shadow-lg" style="font-size: 1.2rem;">
+                    <i class="bi bi-compass me-2"></i>Explore Experiences
                 </a>
-                <a href="#clubs" class="btn btn-outline-light btn-lg px-5 py-3">
-                    Join Communities
+                <a href="#clubs" class="btn btn-outline-light btn-lg px-5 py-4 rounded-pill shadow-lg" style="font-size: 1.2rem;">
+                    <i class="bi bi-people me-2"></i>Join Communities
                 </a>
             </div>
         </div>
@@ -284,17 +284,32 @@
             <p class="lead text-muted">Meet the passionate individuals behind The Journey</p>
         </div>
         
-        <div class="row g-4">
+        <div class="row g-4 justify-content-center">
             {% for member in team_members %}
             <div class="col-lg-3 col-md-6">
-                <div class="card border-0 shadow-sm text-center h-100">
+                <div class="card border-0 shadow-sm text-center h-100 hover-lift">
                     <div class="card-body p-4">
-                        <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                            <i class="bi bi-person-circle fs-1 text-white"></i>
+                        <div class="position-relative d-inline-block mb-3">
+                            {% set avatar_images = ["https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80", 
+                                                   "https://images.unsplash.com/photo-1494790108755-2616b04b9e6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80",
+                                                   "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80",
+                                                   "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80"] %}
+                            <img src="{{ avatar_images[loop.index0 % avatar_images|length] }}" 
+                                 alt="{{ member.name }}" 
+                                 class="rounded-circle border border-3 border-white shadow" 
+                                 style="width: 100px; height: 100px; object-fit: cover;">
                         </div>
-                        <h5 class="card-title">{{ member.name }}</h5>
+                        <h5 class="card-title fw-bold">{{ member.name }}</h5>
                         <p class="text-primary fw-semibold mb-2">{{ member.role }}</p>
                         <p class="card-text text-muted small">{{ member.bio }}</p>
+                        <div class="d-flex justify-content-center gap-2 mt-3">
+                            <a href="#" class="btn btn-outline-primary btn-sm rounded-circle">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-primary btn-sm rounded-circle">
+                                <i class="bi bi-twitter"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

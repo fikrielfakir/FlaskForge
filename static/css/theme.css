@@ -585,3 +585,13 @@ section {
 .bg-gradient-gold {
   background: linear-gradient(135deg, var(--accent-gold) 0%, #e6a500 100%);
 }
+
+/* Team Cards Hover Effect */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+}
